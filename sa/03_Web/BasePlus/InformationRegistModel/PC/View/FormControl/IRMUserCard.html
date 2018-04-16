@@ -1,0 +1,26 @@
+﻿<div class="personCardWrap">
+    <div class="media personCardHead">
+        <a class="pull-left">
+            <img class="lzUserImg64 img-circle" lz-img="user.face" wh-size="48X48" err-src="/Base/PC/Image/img.gif" />
+        </a>
+        <div class="media-body">
+            <h5 class="userName"><a class="colorBlue">{{user.uname}}</a></h5>
+            <div class="btn-group btn-group-left btn-group-right" ng-show="true">
+                <div ng-show="loginuser.uid!=user.uid">
+                    <button class="btn btn-icons" title="发送私信" ng-click="popoverToolBar.openIMChat($hide)"><i class="icon icon-comment"></i></button>
+                    <button class="btn btn-icons" title="发送 E-mail" ng-click="popoverToolBar.sendEmail($hide)"><i class="icon icon-envelope"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="personCardBtn" style="margin-bottom: -15px;" ng-if="!isreadonly" ng-show="utype!=1">
+        <ul class="nav nav-justified">
+            <li ng-if="loginuser.uid==user.uid">
+                <button class="btn btn-link btn-block" ng-click="popoverToolBar.deleteMember($hide,'1')">退出任务</button>
+            </li>
+            <li ng-if="loginuser.uid!=user.uid">
+                <button class="btn btn-link btn-block" ng-click="popoverToolBar.deleteMember($hide)">删除成员</button>
+            </li>
+        </ul>
+    </div>
+</div>

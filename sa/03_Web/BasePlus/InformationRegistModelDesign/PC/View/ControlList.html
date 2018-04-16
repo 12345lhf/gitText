@@ -1,0 +1,35 @@
+﻿<link mispt-href="/BasePlus/InformationRegistModelDesign/PC/CSS/ControList.css" rel="stylesheet" />
+<script src="/BasePlus/InformationRegistModelDesign/Common/JS/Toos.js"></script>
+<div class="irm-list" ng-controller="InformationRegistModelControlListController">
+
+    <div class="irm-list-toolbar">
+        <label class="pull-right irm-btn-add" title="点击添加控件" ng-click="UIMethods.openAddControl();">
+            新建控件
+        </label>
+    </div>
+    <div class="irm-list-container" ng-if="UIData.controls.length>0">
+        <div class="irm-list-theader irm-list-tr">
+            <div class="col-md-1">序号</div>
+            <div class="col-md-3 text-left">控件名称</div>
+            <div class="col-md-3 text-left">控件编码</div>
+            <div class="col-md-5 text-left">控件描述</div>
+            <div id="irm-model-table-theader-offset" style="display:none"></div>
+        </div>
+        <div class="irm-list-tbody">
+            <div id="irm-model-table-tr-container">
+                <div class="irm-list-tr" ng-repeat="control in UIData.controls">
+                    <div class="col-md-1">{{$index+1}}</div>
+                    <div class="col-md-3 text-left td-ellipsis" title="{{control.name}}">{{control.name}}</div>
+                    <div class="col-md-3 text-left td-ellipsis" title="{{control.code}}">{{control.code}}</div>
+                    <div class="col-md-5 text-left td-ellipsis" title="{{control.description}}">{{control.description}}</div>
+                    <div class="irm-list-tr-operate">
+                        <div class="edit" ng-if="!control.isDefault" ng-click="UIMethods.openDetailControl(control);">编辑</div>
+                        <div class="del" ng-if="!control.isDefault" ng-click="UIMethods.removeControl(control.id,$index);">删除</div>
+                        <div class="edit" ng-if="control.isDefault" ng-click="UIMethods.openReadControl(control);">查看</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="irm-list-container" ng-if="!UIData.controls.length>0">无数据</div>
+</div>

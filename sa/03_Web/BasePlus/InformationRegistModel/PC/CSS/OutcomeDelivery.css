@@ -1,0 +1,128 @@
+﻿.upload-include-container {
+    height: 100%;
+}
+
+.upload-add-container {
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.upload-add-container .upload-add-toolbar {
+    padding: 0 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.upload-add-container .upload-add-scroll-container {
+    height: 96px;
+}
+
+.upload-add-container .opeartionBtns {
+    margin-right: 10px;
+}
+
+.upload-detail-container1 .upload-detail-toolbar {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.upload-tree-grid-head {
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 44px;
+    
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+.upload-tree-grid-row1 {
+    padding: 0px;
+    margin: 0px;
+    
+    vertical-align: top;
+    clear: both;
+}
+
+    /***列滑过，选中*******/
+    .upload-tree-grid-row1.active {
+        background-color:#f2f9fe;
+    }
+
+.upload-tree-grid-load-row {
+   
+   
+}
+
+.upload-tree-grid-cell1 {
+    padding: 2px 15px;
+    vertical-align: middle;
+    display: table-cell;
+    white-space: nowrap;
+  
+    position: relative;
+}
+
+.upload-tree-td1 {
+   
+    padding: 6px 15px;
+}
+
+    .upload-tree-td1 > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .upload-tree-td1 .form-control {
+        margin-top: -2px;
+        margin-bottom: -2px;
+    }
+
+    .upload-tree-td1 > span.color999 {
+        display: inline-block;
+        vertical-align: middle;
+        padding-top: 6px;
+    }
+
+    .upload-tree-td1 .iconSwitch {
+        width: 10px;
+        display: inline-block;
+        background: none;
+        cursor: pointer;
+        color: #999;
+        font-size: 16px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .upload-tree-td1 .blank {
+        width: 15px;
+        display: inline-block;
+        background: none;
+        margin-left: -15px;
+    }
+
+    .upload-tree-td1 .form-inline {
+        margin-top: 3px;
+        display: inline-block;
+    }
+
+    .upload-tree-td1 > .control {
+        position: absolute;
+        top: 10px;
+        right: 0px;
+        margin-top: 0px;
+        z-index: 2;
+    }
+
+    .upload-tree-td1 .control .btn {
+        padding: 3px 6px;
+    }
+
+
+    .upload-tree-td1 .spantit {
+        max-width: 35%;
+        cursor: pointer;
+    }
+
+    .upload-tree-td1 .txtNowrap {
+        max-width: 50%;
+    }
+  

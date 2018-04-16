@@ -1,0 +1,302 @@
+﻿a:hover {
+    text-decoration: none;
+}
+
+.mispt-ufl-mainContainer {
+    height: 100%;
+    padding: 0px 0px 20px 20px;
+    overflow-y: auto;
+}
+
+.mispt-userfieldlist {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+}
+
+    .mispt-userfieldlist > .mispt-ufl-listgroup {
+        height: 95%;
+        width: 227px;
+        border: 1px solid #e0e0e0;
+        padding-bottom: 20px;
+        margin: 20px 0px 0px 20px;
+        /* border-radius: 4px; */
+        overflow: auto;
+        background-color: #f6f6f8;
+    }
+
+        .mispt-userfieldlist > .mispt-ufl-listgroup > .mispt-ufl-listitem {
+            height: 46px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            width: 100%;
+            word-break: break-all;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            line-height: 45px;
+            padding-left: 20px;
+        }
+
+            .mispt-userfieldlist > .mispt-ufl-listgroup > .mispt-ufl-listitem:before {
+                margin: 0px 8px;
+                /*background-image: url('../BasePlus/CooperationTaskModel/PC/Images/point.png');*/
+                content: url('../Images/point.png');
+            }
+
+        .mispt-userfieldlist > .mispt-ufl-listgroup > .listactive {
+            cursor: default;
+            color: white;
+            /*background-color: rgba(216, 45, 58,1);*/
+            background-color: #e1556f;
+        }
+
+            .mispt-userfieldlist > .mispt-ufl-listgroup > .listactive::before {
+                margin: 0px 8px;
+                content: url('../Images/pointA.png');
+            }
+
+    .mispt-userfieldlist > .mispt-ufl-view {
+        flex: 1;
+        width: 100%;
+        background-color: white;
+        margin-top: 20px;
+        overflow: hidden;
+    }
+
+.mispt-ufl-panel-heading {
+    background-color: #fbfbf8;
+    height: 46px;
+    display: flex;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.panelheadingborder {
+    margin-bottom: 12px;
+}
+
+.mispt-ufl-panel-heading-text {
+    font-size: 16px;
+    padding: 12px 15px;
+    flex: 9;
+}
+
+.mispt-ufl-panel-heading-arrow-info {
+    float: right;
+    width: 46px;
+    height: 46px;
+    border-left: 1px solid #e0e0e0;
+    background-image: url('../Images/arrowD.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.activearrow-info {
+    background-image: url('../Images/arrowU.png');
+}
+
+.mispt-ufl-customattr-container {
+    border: 1px solid #e0e0e0;
+}
+
+.mispt-ufl-inlineattr, .mispt-ufl-customattr {
+    width: 100%;
+    /*max-height: 70%;*/
+    overflow: hidden;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+}
+
+.mispt-ufl-customattr {
+    border-bottom: none;
+    margin-bottom: 0px;
+}
+
+    .mispt-ufl-customattr .mispt-ufl-field-item {
+        cursor: move;
+    }
+
+.mispt-ufl-inlineattr select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.mispt-userfieldlist > .mispt-ufl-view > .mispt-ufl-inlineattr-container {
+    margin-bottom: 20px;
+}
+
+.panel-heading {
+    text-align: center;
+}
+
+.mispt-ufl-customattr-form {
+    height: 70%;
+}
+
+    .mispt-ufl-customattr-form .mispt-ufl-field-item {
+        height: 100%;
+    }
+
+.mispt-ufl-field-item {
+    display: flex;
+    flex-direction: column;
+    border: 2px dotted #c8c8c8;
+    padding: 32px 8px 15px 8px;
+    margin: 20px;
+    position: relative;
+}
+
+.mispt-ufl-customattr-container .mispt-ufl-field-item {
+    cursor: move;
+}
+
+.mispt-ufl-field-item:hover .mispt-ufl-form-del {
+    display: block;
+}
+
+.mispt-ufl-form-unit {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.mispt-ufl-form-label {
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    color: #76788d;
+    font-weight: normal;
+    width: 90px;
+    text-align: right;
+    float: left;
+    /*margin: 8px 0px 0px 0px;*/
+}
+
+.mispt-ufl-form-unit input[type="text"], .mispt-ufl-form-unit select {
+    border-radius: 0px;
+}
+
+.mispt-ufl-form-del {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+div.btnAddField {
+    border: 2px dotted #6bb6d9;
+    font-family: 'Microsoft YaHei';
+    font-size: 16px;
+    color: #46a4d0;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mispt-ufl-footer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: 10px;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    margin-bottom: 20px;
+}
+
+.mispt-ufl-footer-btns {
+    /*height: 45px;*/
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+    .mispt-ufl-footer-btns > .mispt-ufl-footer-btn {
+        width: 210px;
+        height: 40px;
+        background-color: rgba(31,181,173,1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .mispt-ufl-footer-btns > .mispt-ufl-footer-btn-disable {
+        background-color: rgba(31,181,173,0.65);
+        cursor: no-drop;
+    }
+
+.mispt-ufl-form-control {
+    align-items: flex-start;
+    width: 100%;
+}
+
+
+.mispt-ufl-btnAddFieldOption {
+    width: 81px;
+    height: 32px;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    color: #76788d;
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+input.form-control {
+    height: 32px;
+}
+/*滚动条整体*/
+.mispt-userfieldlist *::-webkit-scrollbar {
+    width: 7px;
+    background-color: rgba(255,255,255,0);
+}
+/*滚动条两端按钮*/
+.mispt-userfieldlist *::-webkit-scrollbar-button {
+    display: none;
+}
+/*外层轨道*/
+.mispt-userfieldlist *::-webkit-scrollbar-track {
+}
+/*内层轨道*/
+.mispt-userfieldlist *::-webkit-scrollbar-track-piece {
+    background-color: #f6f6f8;
+}
+/*拖动块*/
+.mispt-userfieldlist *::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: #e0e0e0;
+}
+/*边角*/
+.mispt-userfieldlist *::-webkit-scrollbar-corner {
+}
+/*右下角托块的样式*/
+.mispt-userfieldlist *::-webkit-resizer {
+}
+
+select[disabled] {
+    background-color: rgb(235, 235, 228);
+    cursor: no-drop;
+}
+
+.radio-inline {
+    padding-top: 7px;
+}
+
+.mispt-ufl-form-unit lable {
+    color: black;
+}

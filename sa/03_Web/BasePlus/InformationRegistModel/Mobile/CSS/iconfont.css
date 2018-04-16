@@ -1,0 +1,34 @@
+
+@font-face {
+    font-family: "iconfont";
+    src: url('font/iconfont.eot'); /* IE9*/
+    src: url('font/iconfont.eot#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('font/iconfont.woff') format('woff'), /* chrome, firefox */
+    url('font/iconfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+    url('font/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-clip:before {
+    content: "\e623";
+}
+
+.icon-audio:before {
+    content: "\e635";
+}
+
+.icon-right:before {
+    content: "\e601";
+}
+
+.icon-xdn-audio:before {
+    content: "\e61c";
+}

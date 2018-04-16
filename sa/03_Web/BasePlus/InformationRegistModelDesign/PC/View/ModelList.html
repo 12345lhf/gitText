@@ -1,0 +1,1757 @@
+﻿<link mispt-href="/BasePlus/InformationRegistModelDesign/PC/CSS/ControList.css" rel="stylesheet" />
+<div class="irm-list" ng-controller="InformationRegistModelListController">
+    <div class="irm-list-toolbar">
+        <div class="irm-header-toolbar">
+            <div class="irm-dropdown-filterbtn">
+                <!--过滤下拉-->
+                <div ng-if="true" class="btn-group btn-group-noblank">
+                    <!--字段/列名过滤条件暂时不用了.暂时保留-->
+                    <!--<div class="btn-group dropdown">
+                        <a class="btn dropdown-toggle" style="border-radius: 4px;" ng-class="{true:'btn-primary',false:'btn-default radius'}[toolsBar.filterManager.selectFilterItem.filterCode!='none']" id="lzTableToolFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="btn-txt-left" ng-bind="toolsBar.filterManager.selectFilterItem.filterValue"></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="lzTableToolFilter">
+                            <li ng-repeat="item in toolsBar.filterManager.initData" ng-class="{true:'active',false:''}[toolsBar.filterManager.selectFilterItem.filterCode==item.filterCode]" ng-click="toolsBar.filterManager.filterItemClick(item);">
+                                <a href="javascript:void(0)" ng-class="item.classValue" data-toggle="dropdown">{{item.filterValue}}</a>
+                            </li>
+                        </ul>
+                    </div>-->
+                    <!--<div class="irm-btn-module-name"><a class="btn btn-primary"><span class="btn-txt-left ng-binding">模块名称</span></a></div>-->
+                    <!--过滤输入框--><!--ng-show="toolsBar.filterManager.selectFilterItem.filterCode!='none'&&toolsBar.filterManager.selectFilterItem.inputType=='text'"-->
+                    <div class="btn-group dropdown">
+                        <div class="input-group" style="width:206px;">
+                            <input ng-model="toolsBar.filterManager.selectFilterItem.inputValue" type="text" title="点击回车搜索" ng-keyup="toolsBar.filterManager.searchByKeyup($event)" class="form-control f12" style="height:34px; border: 1px solid rgba(0,0,0,0.1);" aria-describedby="inputSuccess2Status" placeholder="模块名称">
+                            <div ng-click="toolsBar.filterManager.searchByBtnClick($event);" class="input-group-addon" style="width:34px; background-color:white; cursor:pointer;" title="点击搜索"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+                        </div>
+                    </div>
+                    <div class="btn-group" style="margin-left:3px;">
+                        <button class="btn btn-default" style="border-radius: 4px; height:34px; line-height:10px;" type="button" title="刷新列表" ng-click="toolsBar.refreshManager.refreshClick();">
+                            <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right irm-btn-add" title="点击添加模块" ng-click="newModelMananer.open();">
+                新建模块
+            </div>
+        </div>
+    </div>
+    <div class="irm-list-container" ng-if="modelListManager.models.length>0">
+        <div class="irm-list-theader irm-list-tr">
+            <div class="col-md-1">序号</div>
+            <div class="col-md-2 text-left">模块名称</div>
+            <div class="col-md-6 text-left">模块描述</div>
+            <div class="col-md-1 text-left">创建日期</div>
+            <div class="col-md-1 text-left">状态</div>
+            <div class="col-md-1 text-left">发布日期</div>
+            <div id="irm-model-table-theader-offset" style="display:none"></div>
+        </div><!--滚动加载不用了--lz-scrollable-vertical="5" scrollable-x="false" scrollable-y="true" lz-scroll-change-container-one="false" lz-scroll-will-complete="loadOper.loadData"-->
+        <div class="irm-list-tbody">
+            <div id="irm-model-table-tr-container">
+                <div class="irm-list-tr" ng-repeat="model in modelListManager.models">
+                    <div class="col-md-1">{{$index+1}}</div>
+                    <div class="col-md-2 text-left td-ellipsis" title="{{model.name}}">{{model.name}}</div>
+                    <div class="col-md-6 text-left td-ellipsis" title="{{model.description}}">{{model.description}}</div>
+                    <div class="col-md-1 text-left"><span ng-bind="model.createDate|date:'yyyy-MM-dd'"></span></div>
+                    <div class="col-md-1 text-left">
+                        <span ng-if="model.state===0">从未发布</span>
+                        <span ng-if="model.state===1" style="color:#00679d;">当前修改未发布</span>
+                        <span ng-if="model.state===2" style="color:#3f8900;">已发布</span>
+                    </div>
+                    <div class="col-md-1 text-left"><span ng-bind="model.publishDate|date:'yyyy-MM-dd'"></span></div>
+                    <div class="irm-list-tr-operate">
+                        <div class="edit" ng-click="newModelMananer.open(model);">编辑</div>
+                        <div class="publish" ng-if="model.state!==2" ng-click="modelListManager.publish(model);">发布</div>
+                        <div class="extend" ng-click="extendConfigManager.open(model);">扩展配置</div>
+                        <div class="changeClass" ng-click="modelListManager.changgeClass(model);">调整分类 </div>
+                        <div class="del" ng-if="model.state===0" ng-click="modelListManager.del(model);">删除</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="irm-list-container" ng-if="!modelListManager.models.length>0">
+        <div class="irm-list-theader irm-list-tr">
+            <div class="col-md-1">序号</div>
+            <div class="col-md-2 text-left">模块名称</div>
+            <div class="col-md-6 text-left">模块描述</div>
+            <div class="col-md-1 text-left">创建日期</div>
+            <div class="col-md-1 text-left">状态</div>
+            <div class="col-md-1 text-left">发布日期</div>
+            <div id="irm-model-table-theader-offset" style="display:none"></div>
+        </div>
+    </div>
+
+    <div class="irm-list-screen-cover" ng-class="{true:'active'}[coverScreenManager.isShow]">
+        <style>
+            .irm-list-screen-cover {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                z-index: 2;
+                -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 0, .58, 1);
+                transition: transform 0.3s cubic-bezier(0, 0, .58, 1);
+                -webkit-transform: translate3d(100%,0,0);
+                transform: translate3d(100%,0,0);
+            }
+
+                .irm-list-screen-cover.active {
+                    -webkit-transform: translate3d(0,0,0);
+                    transform: translate3d(0,0,0);
+                }
+
+                .irm-list-screen-cover .screen-cover-dialog-container {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                    .irm-list-screen-cover .screen-cover-dialog-container .screen-cover-dialog-header {
+                        display: flex;
+                        justify-content: flex-end;
+                    }
+
+                        .irm-list-screen-cover .screen-cover-dialog-container .screen-cover-dialog-header > span {
+                            font-size: 18px;
+                            color: #868686;
+                            cursor: pointer;
+                            margin-top: 15px;
+                            margin-right: 15px;
+                        }
+
+                    .irm-list-screen-cover .screen-cover-dialog-container .screen-cover-dialog-body {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;
+                    }
+        </style>
+        <div class="screen-cover-dialog-container">
+            <div class="screen-cover-dialog-header">
+                <span ng-click="coverScreenManager.close(true);" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </div>
+            <div class="screen-cover-dialog-body" ng-include="coverScreenManager.tpl">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--stepper整体结构-->
+<script type="text/ng-template" id="stepper-nav-tpl">
+    <style>
+        .stepper-header {
+            height: 120px;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+        }
+
+            .stepper-header .stepper-container {
+                display: flex;
+                align-items: center;
+            }
+
+                .stepper-header .stepper-container .stepper-num-text {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                    .stepper-header .stepper-container .stepper-num-text .num {
+                        width: 54px;
+                        height: 57px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                    }
+
+                        .stepper-header .stepper-container .stepper-num-text .num.disabled {
+                            cursor: not-allowed;
+                            opacity: .65;
+                        }
+
+                    .stepper-header .stepper-container .stepper-num-text .text {
+                        font-size: 16px;
+                        color: #76788d;
+                    }
+
+            .stepper-header .stepper-splitline {
+                border-bottom: 1px solid #d4d5d6;
+                width: 212px;
+                margin-bottom: 28px;
+            }
+
+            .stepper-header .stepper-splitline-no {
+                border-bottom: none;
+            }
+
+        .stepper-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 5px;
+            padding-left: 50px;
+            padding-right: 50px;
+            overflow: hidden;
+        }
+
+        .stepper-footer {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+    </style>
+    <div class="stepper-header">
+        <div class="stepper-container" ng-init="stepperManager.selectedStepper = stepperManager.steppers[0]" ng-repeat="stepper in stepperManager.steppers">
+            <div class="stepper-num-text">
+                <div class="num" ng-click="stepperManager.stepperClick(stepper);">
+                    <img ng-src="{{stepperManager.getStepperImg(stepper)}}" />
+                </div>
+                <div class="text" ng-class="{true:'active'}[stepperManager.selectedStepper==stepper]">
+                    <span>{{stepper.text}}</span>
+                </div>
+            </div>
+            <div class="stepper-splitline" ng-if="($index+1)!=stepperManager.steppers.length"></div>
+        </div>
+    </div>
+    <div class="stepper-body" ng-include="stepperManager.selectedStepper.bodyTpl"></div>
+</script>
+
+<!--基本信息页签 相关-->
+<script type="text/ng-template" id="model-config-baseinfo-body">
+    <style>
+        .irm-am-baseinfo-form {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+            .irm-am-baseinfo-form input, .irm-am-baseinfo-form textarea {
+                border-radius: 0;
+            }
+
+            .irm-am-baseinfo-form .form-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+                .irm-am-baseinfo-form .form-body .form-unit {
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 14px;
+                }
+
+                    .irm-am-baseinfo-form .form-body .form-unit .label {
+                        font-family: 'Microsoft YaHei';
+                        font-size: 14px;
+                        color: #76788d;
+                        font-weight: normal;
+                    }
+
+                    .irm-am-baseinfo-form .form-body .form-unit .control {
+                        height: 100%;
+                    }
+
+                    .irm-am-baseinfo-form .form-body .form-unit input {
+                        width: 815px;
+                        height: 100%;
+                    }
+
+                .irm-am-baseinfo-form .form-body > .form-description {
+                    flex: 1;
+                    display: flex;
+                }
+
+                    .irm-am-baseinfo-form .form-body > .form-description .label {
+                        font-family: 'Microsoft YaHei';
+                        font-size: 14px;
+                        color: #76788d;
+                        font-weight: normal;
+                    }
+
+                    .irm-am-baseinfo-form .form-body > .form-description .control {
+                        display: flex;
+                    }
+
+                    .irm-am-baseinfo-form .form-body > .form-description textarea {
+                        width: 815px;
+                    }
+
+            .irm-am-baseinfo-form .form-footer {
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+
+        .form-footer button {
+            width: 210px;
+            height: 40px;
+            background-color: #1fb5ad;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+        }
+
+            .form-footer button[disabled] {
+                cursor: not-allowed;
+                opacity: .65;
+            }
+
+        .ir-am-baseinfoForm-input-invalid {
+            border: 1px solid red;
+        }
+    </style>
+    <form name="baseinfoForm" class="form-horizontal irm-am-baseinfo-form" novalidate="novalidate">
+        <div class="form-body">
+            <div class="form-unit">
+                <div class="label">模块名称：</div>
+                <div class="control" ng-class="{false:'has-error'}[newModelMananer.baseInfoManager.isInvalidModuleName]">
+                    <input type="text" class="form-control f14" ng-class="{false:'ir-am-baseinfoForm-input-invalid'}[newModelMananer.baseInfoManager.isInvalidModuleName]" name="moduleName" ng-change="newModelMananer.baseInfoManager.fieldTextChanged();" ng-model="newModelMananer.newModel.name" placeholder="必填" required />
+                </div>
+            </div>
+            <div class="form-description">
+                <div class="label">模块描述：</div>
+                <div class="control">
+                    <textarea class="form-control" cols="3" name="moduleDescription" ng-model="newModelMananer.newModel.description"></textarea>
+                </div>
+            </div>
+            <!--<div class="form-unit description">
+                <div class="label">模块描述：</div>
+                <div class="control" style="height:auto; display:flex;">
+                    <textarea class="form-control" cols="3" name="moduleDescription" ng-model="newModelMananer.newModel.description"></textarea>
+                </div>
+            </div>-->
+        </div>
+        <div class="form-footer">
+            <button class="model-config-baseinfo-footer-next" type="button" ng-click="newModelMananer.baseInfoManager.nextStepper();">
+                下一步
+            </button>
+        </div>
+    </form>
+</script>
+
+<!--属性配置页签 相关-->
+<script type="text/ng-template" id="model-config-property-body">
+    <style>
+        .irm-am-formconfig-property {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            overflow: hidden;
+        }
+
+            .irm-am-formconfig-property input, .irm-am-formconfig-property select {
+                border-radius: 0;
+            }
+
+            .irm-am-formconfig-property .form-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 16px;
+                overflow: hidden;
+            }
+
+                .irm-am-formconfig-property .form-body > div {
+                    /*padding-right: 15px;*/
+                    width: 1003px;
+                }
+
+            .irm-am-formconfig-property .irm-attrList-form {
+                overflow-y: auto;
+                overflow-x: hidden;
+                width: 1033px;
+            }
+
+            .irm-am-formconfig-property .form-body .field-item {
+                display: flex;
+                flex-direction: column;
+                border: 2px dashed #c8c8c8;
+                cursor: move;
+                padding-top: 20px;
+                padding-left: 5px;
+                padding-right: 40px;
+                position: relative;
+                margin-bottom: 15px;
+            }
+
+                .irm-am-formconfig-property .form-body .field-item .del {
+                    position: absolute;
+                    top: 7px;
+                    right: 10px;
+                    cursor: pointer;
+                    display: none;
+                }
+
+                .irm-am-formconfig-property .form-body .field-item:hover .del {
+                    display: block;
+                }
+
+            .irm-am-formconfig-property .form-body .form-unit {
+                height: 32px;
+                display: flex;
+                align-items: center;
+                margin-bottom: 12px;
+            }
+
+                .irm-am-formconfig-property .form-body .form-unit .label {
+                    font-family: 'Microsoft YaHei';
+                    font-size: 14px;
+                    color: #76788d;
+                    font-weight: normal;
+                    width: 90px;
+                    text-align: right;
+                }
+
+                .irm-am-formconfig-property .form-body .form-unit .control {
+                    height: 100%;
+                }
+
+                .irm-am-formconfig-property .form-body .form-unit input[type="text"], .irm-am-formconfig-property .form-body .form-unit select {
+                    width: 815px;
+                    height: 100%;
+                }
+
+            .irm-am-formconfig-property .form-footer {
+                display: flex;
+                flex-direction: column;
+                width: 1003px;
+                min-height: 117px;
+            }
+
+                .irm-am-formconfig-property .form-footer > div.btnAddField {
+                    border: 2px dashed #6bb6d9;
+                    font-family: 'Microsoft YaHei';
+                    font-size: 18px;
+                    color: #46a4d0;
+                    height: 47px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+
+                .irm-am-formconfig-property .form-footer > div.btns {
+                    height: 70px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                    .irm-am-formconfig-property .form-footer > div.btns > button {
+                        width: 210px;
+                        height: 40px;
+                        background-color: #1fb5ad;
+                        color: #fff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 18px;
+                        cursor: pointer;
+                        border: none;
+                    }
+
+                        .irm-am-formconfig-property .form-footer > div.btns > button:first-child {
+                            margin-right: 111px;
+                            border: 1px solid #e0e0e0;
+                            background-color: #f8f8f8;
+                            color: #76788d;
+                        }
+
+                        .irm-am-formconfig-property .form-footer > div.btns > button:last-child[disabled] {
+                            cursor: not-allowed;
+                            opacity: .65;
+                        }
+
+        .btnAddFieldOption {
+            width: 81px;
+            height: 32px;
+            font-family: 'Microsoft YaHei';
+            font-size: 14px;
+            color: #76788d;
+            background-color: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        .irm-attrList-forRepeat {
+            position: relative;
+            padding: 0px;
+        }
+            /*属性列表输入框*/
+            .irm-attrList-forRepeat .irm-attrList-input {
+                width: 90.7%;
+                height: 40px;
+                margin-bottom: 10px;
+                border: 1px solid #e0e0e0;
+                padding: 5px 14px;
+            }
+            /*输入框里面的删除和拖动图标*/
+            .irm-attrList-forRepeat .irm-attrList-del, .irm-attrList-drag {
+                width: 48px;
+                height: 40px;
+                position: absolute;
+                z-index: 10;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+                border: 1px solid #e0e0e0;
+                border-left: none;
+            }
+            /*输入框验证失败显示*/
+            .irm-attrList-forRepeat .irm-attrList-input-valid {
+                border: 1px solid #a94442;
+            }
+            /*输入框验证失败图标统一显示*/
+            .irm-attrList-forRepeat .irm-attrList-icon-valid {
+                border-left: 1px solid #a94442;
+            }
+
+            .irm-attrList-forRepeat .irm-attrList-icon-focus {
+                border-left: 1px solid #3292ea;
+            }
+            /*输入框中的拖动图标*/
+            .irm-attrList-forRepeat .irm-attrList-drag {
+                right: 0px;
+                cursor: all-scroll;
+                background-image: url("/BasePlus/InformationRegistModelDesign/PC/Images/iconList.png");
+            }
+            /*输入框中的删除图标*/
+            .irm-attrList-forRepeat .irm-attrList-del {
+                right: 47px;
+                cursor: pointer;
+                background-image: url("/BasePlus/InformationRegistModelDesign/PC/Images/iconDel.png");
+            }
+
+        /*滚动条整体*/
+        .irm-attrList-form *::-webkit-scrollbar {
+            width: 7px;
+            background-color: rgba(255,255,255,0);
+        }
+        /*滚动条两端按钮*/
+        .irm-attrList-form *::-webkit-scrollbar-button {
+            display: none;
+        }
+        /*外层轨道*/
+        .irm-attrList-form *::-webkit-scrollbar-track {
+        }
+        /*内层轨道*/
+        .irm-attrList-form *::-webkit-scrollbar-track-piece {
+            background-color: #f6f6f8;
+        }
+        /*拖动块*/
+        .irm-attrList-form *::-webkit-scrollbar-thumb {
+            width: 10px;
+            background-color: #e0e0e0;
+        }
+        /*边角*/
+        .irm-attrList-form *::-webkit-scrollbar-corner {
+        }
+        /*右下角托块的样式*/ 0 .irm-attrList-form *::-webkit-resizer {
+        }
+    </style>
+    <form name="fieldsForm" class="form-horizontal irm-am-formconfig-property" novalidate="novalidate">
+        <div class="form-body irm-attrList-form" ui-sortable="sortableOptions" ng-model="attrListManager.attrList">
+            <!--ng-class="{'irm-attrList-icon-valid':attrItem.valid.verification,'irm-attrList-icon-focus':attrItem.valid.hasFocus}"-->
+            <div class="irm-attrList-forRepeat" ng-repeat="attrItem in attrListManager.attrList">
+                <i class="irm-attrList-del" ng-click="newModelMananer.propertyManager.delField(attrItem)"></i>
+                <i class="irm-attrList-drag"></i>
+                <input type="text" class="irm-attrList-input" ng-class="{true:'irm-attrList-input-valid'}[attrItem.valid.verification]" ng-change="attrListManager.attrValid(attrItem)" ng-model="attrItem.model.attrName" ng-focus="attrListManager.attrValid(attrItem)" ng-blur="newModelMananer.propertyManager.forEachFields()" placeholder="必填" />
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="btnAddField" ng-click="newModelMananer.propertyManager.addField();">
+                添加属性
+            </div>
+            <div class="btns">
+                <button class="model-config-property-footer-pre" type="button" ng-click="newModelMananer.propertyManager.preStepper();">
+                    上一步
+                </button>
+                <button class="model-config-property-footer-next" type="button" ng-click="newModelMananer.propertyManager.nextStepper();">
+                    下一步
+                </button>
+            </div>
+        </div>
+    </form>
+</script>
+
+<!--登记单配置页签 相关-->
+<script type="text/ng-template" id="model-config-form-body">
+    <style>
+        .irm-am-formconfig-form {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            overflow: hidden;
+        }
+
+            .irm-am-formconfig-form input, .irm-am-formconfig-form select {
+                border-radius: 0;
+            }
+
+            .irm-am-formconfig-form .form-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 16px;
+                overflow: hidden;
+            }
+
+                .irm-am-formconfig-form .form-body > div {
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    padding-right: 15px;
+                    width: 1003px;
+                }
+
+                .irm-am-formconfig-form .form-body .field-item {
+                    display: flex;
+                    flex-direction: column;
+                    border: 2px dashed #c8c8c8;
+                    cursor: move;
+                    padding-top: 20px;
+                    padding-left: 5px;
+                    padding-right: 40px;
+                    position: relative;
+                    margin-bottom: 15px;
+                }
+
+                    .irm-am-formconfig-form .form-body .field-item .del {
+                        position: absolute;
+                        top: 7px;
+                        right: 10px;
+                        cursor: pointer;
+                        display: none;
+                    }
+
+                    .irm-am-formconfig-form .form-body .field-item:hover .del {
+                        display: block;
+                    }
+
+                .irm-am-formconfig-form .form-body .form-unit {
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 12px;
+                }
+
+                    .irm-am-formconfig-form .form-body .form-unit .label {
+                        font-family: 'Microsoft YaHei';
+                        font-size: 14px;
+                        color: #76788d;
+                        font-weight: normal;
+                        width: 90px;
+                        text-align: right;
+                    }
+
+                    .irm-am-formconfig-form .form-body .form-unit .control {
+                        height: 100%;
+                    }
+
+                    .irm-am-formconfig-form .form-body .form-unit input[type="text"], .irm-am-formconfig-form .form-body .form-unit select {
+                        width: 815px;
+                        height: 100%;
+                    }
+
+            .irm-am-formconfig-form .form-footer {
+                display: flex;
+                flex-direction: column;
+                width: 1003px;
+                min-height: 117px;
+            }
+
+                .irm-am-formconfig-form .form-footer > div.btnAddField {
+                    border: 2px dashed #6bb6d9;
+                    font-family: 'Microsoft YaHei';
+                    font-size: 18px;
+                    color: #46a4d0;
+                    height: 47px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+
+                .irm-am-formconfig-form .form-footer > div.btns {
+                    height: 70px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                    .irm-am-formconfig-form .form-footer > div.btns > button {
+                        width: 210px;
+                        height: 40px;
+                        background-color: #1fb5ad;
+                        color: #fff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 18px;
+                        cursor: pointer;
+                        border: none;
+                    }
+
+                        .irm-am-formconfig-form .form-footer > div.btns > button:first-child {
+                            margin-right: 111px;
+                            border: 1px solid #e0e0e0;
+                            background-color: #f8f8f8;
+                            color: #76788d;
+                        }
+
+                        .irm-am-formconfig-form .form-footer > div.btns > button:last-child[disabled] {
+                            cursor: not-allowed;
+                            opacity: .65;
+                        }
+
+        .btnAddFieldOption {
+            width: 81px;
+            height: 32px;
+            font-family: 'Microsoft YaHei';
+            font-size: 14px;
+            color: #76788d;
+            background-color: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+    </style>
+    <form name="fieldsForm" class="form-horizontal irm-am-formconfig-form" novalidate="novalidate">
+        <div class="form-body">
+            <div ui-sortable ng-model="newModelMananer.newModel.formConfig.fields">
+                <div class="field-item" ng-if="!fieldItem.isHidden" ng-repeat="fieldItem in newModelMananer.newModel.formConfig.fields">
+                    <div class="form-unit">
+                        <div class="label">属性名称：</div>
+                        <!--<div class="control" ng-class="{true:'has-error'}[fieldItem.isNotAllow]">
+                            <input type="text" class="form-control f14" name="fieldName" ng-change="newModelMananer.formManager.fieldTextChanged(fieldItem);" ng-model="fieldItem.fieldName" placeholder="必填" required />
+                        </div>-->
+                        <div class="control" ng-class="{true:'has-error'}[fieldItem.isNotAllow]">
+                            <select class="form-control" ng-model="fieldItem.fieldName" ng-options="control.model.attrName as control.model.attrName for control in attrListManager.attrList" ng-change="newModelMananer.formManager.fieldTextChanged(fieldItem,$index);" id="{{$index+'-model-config-form-body-select'}}"></select>
+                        </div>
+                    </div>
+                    <div class="form-unit">
+                        <div class="label">属性类型：</div>
+                        <div class="control">
+                            <select class="form-control" ng-model="fieldItem.controlType" ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" ng-options="control.text for control in controlTypesList" ng-change="newModelMananer.formManager.fieldTypeSelectChanged(fieldItem);"></select>
+                            <input type="hidden" id="{{'hidTempCode-'+fieldItem.fieldCode}}" value="{{fieldItem.controlType.code}}" />
+                        </div>
+                    </div>
+                    <div ng-include="fieldItem.controlType.tpl"></div>
+                    <div title="点击删除" class="del" ng-if="!fieldItem.isDefault" ng-click="newModelMananer.formManager.delField(fieldItem);">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-footer">
+            <div class="btnAddField" ng-click="newModelMananer.formManager.addField();">
+                添加属性
+            </div>
+            <div class="btns">
+                <button class="model-config-form-footer-pre" type="button" ng-click="newModelMananer.formManager.preStepper();">
+                    上一步
+                </button>
+                <button class="model-config-form-footer-next" type="button" ng-click="newModelMananer.formManager.nextStepper();">
+                    下一步
+                </button>
+            </div>
+        </div>
+    </form>
+</script>
+
+<!--列表配置页签 相关-->
+<script type="text/ng-template" id="model-config-list-body">
+    <style>
+        .irm-list-body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            align-items: center;
+            font-family: 'Microsoft YaHei';
+            color: #76788d;
+            overflow: hidden;
+        }
+
+            .irm-list-body .irm-am-list-footer {
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 70px;
+            }
+
+        .model-config-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 1003px;
+            overflow: hidden;
+        }
+
+            .model-config-list .table-toolbar {
+                font-size: 16px;
+            }
+
+            .model-config-list .table-explain {
+                font-size: 14px;
+                background-color: #f6fdfd;
+                border: 1px solid #85e0ed;
+                display: flex;
+                flex-direction: column;
+                padding-left: 8px;
+                /*height: 32px;*/
+                min-height: 32px;
+            }
+
+                .model-config-list .table-explain > div {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    margin: 4px;
+                }
+
+                    .model-config-list .table-explain > div > img {
+                        margin-right: 8px;
+                    }
+
+            .model-config-list .fields-runtime-show {
+                margin: 10px 0px;
+            }
+
+                .model-config-list .fields-runtime-show > div {
+                    margin: 10px 0px;
+                }
+
+                .model-config-list .fields-runtime-show .fields-runtime-show-input {
+                    margin-left: 5px;
+                }
+
+            .model-config-list .tablelist {
+                width: 100%;
+                min-height: 268px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                margin: 15px auto;
+                overflow: hidden;
+            }
+
+                .model-config-list .tablelist.showRightBottomBorder {
+                    border-right: 1px solid #e0e0e0;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .model-config-list .tablelist .irm-list-body-input {
+                    text-align: center;
+                    border: 1px solid transparent;
+                }
+
+            .model-config-list .tbody {
+                overflow-x: hidden;
+                overflow-y: auto;
+                overflow: overlay;
+            }
+
+            .model-config-list .tr {
+                height: 41px;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .model-config-list .thead.tr {
+                border-top: 1px solid #e0e0e0;
+                border-bottom: 1px solid #e0e0e0;
+                background-color: #f8f8f8;
+                min-height: 41px;
+            }
+
+            .model-config-list .tbody .tr {
+                cursor: move;
+            }
+
+                .model-config-list .tbody .tr.ui-sortable-helper {
+                    border-top: 1px solid #e0e0e0;
+                }
+
+            .model-config-list .tr .td {
+                border-right: 1px solid #e0e0e0;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .model-config-list .tr .td:first-child {
+                    border-left: 1px solid #e0e0e0;
+                }
+
+                .model-config-list .tr .td.hiddenRightBorder {
+                    border-right: none;
+                }
+
+                .model-config-list .tr .td.text-left {
+                    justify-content: flex-start;
+                }
+
+        .model-config-list-footer-pre, .model-config-list-footer-save {
+            width: 210px;
+            height: 40px;
+            background-color: #f8f8f8;
+            color: #76788d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            border: 1px solid #e0e0e0;
+        }
+
+        .model-config-list-footer-save {
+            margin-left: 111px;
+            margin-right: 111px;
+        }
+
+        .model-config-list-footer-publish {
+            width: 210px;
+            height: 40px;
+            background-color: #1fb5ad;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+    <div class="irm-list-body">
+        <div class="model-config-list">
+            <div class="table-toolbar">配置列表显示列：</div>
+            <div class="tablelist" ng-class="{true:'showRightBottomBorder'}[newModelMananer.listManager.isShowCtmListTableTheaderOffset]">
+                <div class="thead tr">
+                    <div style="width: 100%; height: 100%;">
+                        <div class="col-md-2 td">序号</div>
+                        <div class="col-md-6 td text-left">字段名</div>
+                        <div class="col-md-2 td">列宽(px)</div>
+                        <div class="col-md-2 td" ng-class="{true:'hiddenRightBorder'}[newModelMananer.listManager.isShowCtmListTableTheaderOffset]">启用</div>
+                    </div>
+                    <div id="irm-list-table-theader-offset" style="display:none"></div>
+                </div>
+                <div class="tbody">
+                    <div id="irm-list-table-tr-container" ui-sortable ng-model="newModelMananer.newModel.listConfig.fields">
+                        <div class="tr" ng-repeat="field in newModelMananer.newModel.listConfig.fields">
+                            <div class="col-md-2 td">{{$index+1}}</div>
+                            <div class="col-md-6 td text-left">{{field.fieldName}}</div>
+                            <div class="col-md-2 td">
+                                <input class="form-control irm-list-body-input" type="text" ng-model="field.width" ng-change="newModelMananer.listManager.verifyWidthText(field)" ng-blur="newModelMananer.listManager.verifyBlur(field)" title="{{field.width}}" />
+                            </div>
+                            <div class="col-md-2 td" ng-class="{true:'hiddenRightBorder'}[newModelMananer.listManager.isShowCtmListTableTheaderOffset]">
+                                <input ng-disabled="field.fieldCode==='Title'" type="checkbox" ng-click="newModelMananer.listManager.isValidClick(field);" ng-model="field.isListValid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fields-runtime-show">
+                <div>
+                    配置列表运行时展现： 显示序号<input type="checkbox" ng-model="newModelMananer.newModel.listConfig.isShowSerialNumber" class="fields-runtime-show-input" />
+                </div>
+            </div>
+            <div class="table-explain">
+                <div>
+                    <img src="/BasePlus/InformationRegistModelDesign/PC/Images/list-config-info.png" />
+                    <!--上面列表只显示属性类型为“单行文本框”、“多行文本框”、“单选框”、“下拉框”和“日期”的字段！<br />-->
+                    列宽设置说明：字段若设置列宽为0，则视为宽度自适应。
+                </div>
+            </div>
+        </div>
+        <div class="irm-am-list-footer">
+            <div class="model-config-list-footer-pre" ng-click="newModelMananer.listManager.preStepper();">
+                上一步
+            </div>
+            <div class="model-config-list-footer-save" ng-click="newModelMananer.listManager.save();">
+                保存
+            </div>
+            <div class="model-config-list-footer-publish" ng-click="newModelMananer.listManager.publish();">
+                发布
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<!--表单类型模板——单行输入框-->
+<script type="text/ng-template" id="irm-control-config-text">
+    <div class="form-unit">
+        <div class="label">是否普通：</div>
+        <div class="control">
+            <input type="radio" name="{{fieldItem.fieldCode}}+'nor'" ng-model="fieldItem.controlNormal.IsNormal" ng-value=true style="margin-top:11px;" ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" />金额
+            <input type="radio" name="{{fieldItem.fieldCode}}+'nor'" ng-model="fieldItem.controlNormal.IsNormal" ng-value=false style="margin-top:11px;" ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" />其他
+            <input type="text" class="form-control f14" style="width: auto;display:inline-block" ng-if="!fieldItem.controlNormal.IsNormal" ng-model="fieldItem.controlNormal.Unit" placeholder="请输入单位" ng-value=fieldItem.controlNormal.Unit ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" />
+        </div>
+    </div>
+    <div class="form-unit">
+        <div class="label">必填：</div>
+        <div class="control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.IsRequired" style="margin-top:11px;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——多行输入框-->
+<script type="text/ng-template" id="irm-control-config-textarea">
+    <div class="form-unit">
+        <div class="label">必填：</div>
+        <div class="control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.IsRequired" style="margin-top:11px;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——单选框集合-->
+<script type="text/ng-template" id="irm-control-config-radiolist">
+    <div class="form-unit" style="height:auto; align-items: baseline;">
+        <div class="label">选项：</div>
+        <div class="control" style="display:flex; flex-wrap: wrap; max-width:815px;">
+            <label class="radio-inline" style="margin-left:0px; margin-right:10px; padding-bottom:7px;" ng-repeat="option in fieldItem.controlConfig.Options">
+                <input type="radio" ng-disabled="true" value="{{option}}">{{option}}
+            </label>
+            <input type="text" class="form-control f14" style="width: auto;" placeholder="请输入名称" required />
+            <div class="btnAddFieldOption" ng-click="radiolist.add(fieldItem,$event);">添加</div>
+            <div class="btnAddFieldOption" ng-click="radiolist.edit(fieldItem);">编辑</div>
+        </div>
+    </div>
+    <div class="form-unit">
+        <div class="label">用户定制：</div>
+        <div class="control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.IsCustomized" style="margin-top:11px;" />
+        </div>
+        <div style="color: #737373; margin-left:5px;">勾选后，支持用户在“模板管理”中维护选项。</div>
+    </div>
+</script>
+<!--表单类型模板——下拉框-->
+<script type="text/ng-template" id="irm-control-config-dropdownlist">
+    <div class="form-unit" style="height:auto; align-items: baseline;">
+        <div class="label">选项：</div>
+        <div class="control" style="display:flex; flex-wrap: wrap; max-width:815px;">
+            <label class="radio-inline" style="margin-left:0px; margin-right:10px; padding-bottom:7px;" ng-repeat="option in fieldItem.controlConfig.Options">
+                <input type="radio" ng-disabled="true" value="{{option}}">{{option}}
+            </label>
+            <input type="text" class="form-control f14" style="width: auto;" placeholder="请输入名称" required />
+            <div class="btnAddFieldOption" ng-click="dropdownlist.add(fieldItem,$event);">添加</div>
+            <div class="btnAddFieldOption" ng-click="dropdownlist.edit(fieldItem);">编辑</div>
+        </div>
+    </div>
+    <div class="form-unit">
+        <div class="label">用户定制：</div>
+        <div class="control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.IsCustomized" style="margin-top:11px;" />
+        </div>
+        <div style="color: #737373; margin-left:5px;">勾选后，支持用户在“模板管理”中维护选项。</div>
+    </div>
+</script>
+<!--表单类型模板——日期-->
+<script type="text/ng-template" id="irm-control-config-date">
+    <div class="form-unit">
+        <div class="label">日期类型：</div>
+        <div class="control">
+            <label class="radio-inline">
+                <input type="radio" name="{{fieldItem.fieldCode}}" ng-model="fieldItem.controlConfig.DateType" value="yyyy年MM月dd日"> 年-月-日
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="{{fieldItem.fieldCode}}" ng-model="fieldItem.controlConfig.DateType" value="yyyy年MM月dd日 HH时mm分"> 年-月-日 时:分
+            </label>
+        </div>
+    </div>
+    <div class="form-unit">
+        <div class="label">必填：</div>
+        <div class="control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.IsRequired" style="margin-top:11px;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——文件指令-->
+<script type="text/ng-template" id="irm-control-config-filedirective">
+    <style>
+        .field-item-filedirective {
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+            .field-item-filedirective .label {
+                font-family: 'Microsoft YaHei';
+                font-size: 14px;
+                color: #76788d;
+                font-weight: normal;
+                width: 90px;
+                text-align: right;
+            }
+
+            .field-item-filedirective .control {
+                width: 815px;
+            }
+
+                .field-item-filedirective .control .toolbar > div:first-child {
+                    height: 32px;
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                    .field-item-filedirective .control .toolbar > div:first-child > span {
+                        cursor: pointer;
+                    }
+
+                .field-item-filedirective .control .toolbar > div.folder-item-root-add {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    border: 1px solid #ddd;
+                }
+
+            .field-item-filedirective .folder-item-operation {
+                width: 100%;
+            }
+
+                .field-item-filedirective .folder-item-operation > div {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    border: 1px solid #ddd;
+                }
+
+            .field-item-filedirective ul {
+                cursor: default;
+                margin-bottom: 0;
+            }
+
+                .field-item-filedirective ul > li {
+                    padding: 0;
+                    border-radius: 0 !important;
+                    border: none;
+                }
+
+                    .field-item-filedirective ul > li .folder-item {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        overflow: hidden;
+                        cursor: pointer;
+                    }
+
+                        .field-item-filedirective ul > li .folder-item > span:last-child {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                    .field-item-filedirective ul > li .operate-buttons {
+                        display: none;
+                        padding-top: 6px;
+                    }
+
+                .field-item-filedirective ul input[type="text"] {
+                    padding: 1px;
+                }
+
+            .field-item-filedirective .folder-item-operation > div.folder-item-show:hover .operate-buttons {
+                display: block;
+            }
+
+            .field-item-filedirective .folder-item-operation > div > span, .field-item-filedirective .control .toolbar > div.folder-item-root-add > span {
+                padding: 7px;
+                cursor: pointer;
+            }
+
+            .field-item-filedirective ul > li:hover .operate-buttons > span {
+                margin-left: 5px;
+                margin-right: 5px;
+                cursor: pointer;
+            }
+
+            .field-item-filedirective ul > li > span.expand-icon {
+                margin-right: 5px;
+                cursor: pointer;
+            }
+    </style>
+    <div class="field-item-filedirective">
+        <div class="label">默认目录：</div>
+        <div class="control">
+            <div class="toolbar">
+                <div>
+                    <span class="glyphicon glyphicon-folder-open" title="添加文件夹" ng-click="fileDirective.showAdd(fieldItem,$event);"></span>
+                </div>
+                <div class="folder-item-root-add" style="display:none;">
+                    <input type="text" style="padding:0;" />
+                    <span class="glyphicon glyphicon-ok" ng-click="fileDirective.save(fieldItem,$event);"></span>
+                    <span class="glyphicon glyphicon-remove" ng-click="fileDirective.cancel(fieldItem,$event);"></span>
+                </div>
+            </div>
+            <div class="folder-container">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="folder in fieldItem.controlConfig.Folders" ng-init="folder.isShowEdit=false;folder.isShowAdd=false;folder.isShowChild=false;folder.newName='';level=level+1;folderSource=folder;parent=fieldItem.controlConfig.Folders;" ng-include="'irm-control-config-filedirective-li'">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="irm-control-config-filedirective-li">
+    <div class="folder-item-operation">
+        <div class="folder-item-show" ng-if="!folder.isShowEdit">
+            <div class="folder-item" ng-click="folder.isShowChild = !folder.isShowChild;">
+                <label ng-style="{'width':(level-1)*15+'px','min-width':(level-1)*15+'px'}"></label>
+                <span ng-class="{true: 'iconSwitch icon-caret-down', false: 'iconSwitch icon-caret-right'}[folder.isShowChild]" style="width:8px;min-width:8px;"></span>
+                <span class="file-icons folder" style="min-width:32px;"></span>
+                <span ng-bind="folder.Name" title="{{folder.Name}}"></span>
+            </div>
+            <div class="operate-buttons">
+                <span class="glyphicon glyphicon-folder-open" title="添加文件夹" ng-click="fileDirective.folderOperation.add.start(folder);"></span>
+                <span class="glyphicon glyphicon-pencil" title="重命名" ng-click="fileDirective.folderOperation.edit.start(folder);"></span>
+                <span class="glyphicon glyphicon-trash" ng-click="fileDirective.folderOperation.del(folder,parent);" title="删除"></span>
+            </div>
+        </div>
+        <div class="folder-item-edit" ng-if="folder.isShowEdit">
+            <label ng-style="{'width':(level-1)*15+'px','min-width':(level-1)*15+'px'}"></label>
+            <input type="text" ng-model="folder.Name" />
+            <input type="hidden" value="{{::folder.Name}}" />
+            <span class="glyphicon glyphicon-ok" ng-click="fileDirective.folderOperation.edit.save(folder,parent,$event);"></span>
+            <span class="glyphicon glyphicon-remove" ng-click="fileDirective.folderOperation.edit.cancel(folder,$event);"></span>
+        </div>
+        <div class="folder-item-add" ng-if="folder.isShowAdd">
+            <label ng-style="{'width':level*15+'px','min-width':level*15+'px'}"></label>
+            <input type="text" ng-model="folder.newName" />
+            <span class="glyphicon glyphicon-ok" ng-click="fileDirective.folderOperation.add.save(folder);"></span>
+            <span class="glyphicon glyphicon-remove" ng-click="fileDirective.folderOperation.add.cancel(folder);"></span>
+        </div>
+    </div>
+    <ul class="list-group" ng-if="folder.isShowChild">
+        <li class="list-group-item" ng-repeat="folder in folderSource.Children" ng-init="folder.isShowEdit=false;folder.isShowAdd=false;folder.isShowChild=false;folder.newName='';level=level+1;parent=folderSource.Children;folderSource=folder;" ng-include="'irm-control-config-filedirective-li'">
+        </li>
+    </ul>
+</script>
+<!--表单类型模板--组织机构,参与人-->
+<script type="text/ng-template" id="irm-control-config-participant">
+    <style>
+        .irm-control-config-participant-label {
+            width: 100px;
+            float: left;
+            margin-top: 6px;
+        }
+
+            .irm-control-config-participant-label div {
+                float: right;
+                margin-right: 30px;
+            }
+    </style>
+    <div class="form-unit">
+        <div class="label">人员范围：</div>
+        <div class="control">
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'org'" ng-model="fieldItem.controlConfig.ThisOrg" ng-value=true /><div>本组织</div>
+            </div>
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'org'" ng-model="fieldItem.controlConfig.ThisOrg" ng-value=false /><div>跨组织</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-unit">
+        <div class="label"> 人员数量：</div>
+        <div class="control">
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'cou'" ng-model="fieldItem.controlConfig.Single" ng-value=true ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" /><div>单人</div>
+            </div>
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'cou'" ng-model="fieldItem.controlConfig.Single" ng-value=false ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" /><div>多人</div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+<!--扩展配置,顶部标签-->
+<script type="text/ng-template" id="model-extend-config-tab">
+    <style>
+        .model-extend-config-tab {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-left: 152px;
+            padding-right: 152px;
+            overflow: hidden;
+        }
+
+            .model-extend-config-tab .tabs {
+                display: flex;
+                margin-bottom: 15px;
+                min-height: 40px;
+            }
+
+                .model-extend-config-tab .tabs .tab {
+                    /*width: 133px;*/
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #f6fdfd;
+                    color: #9598a7;
+                    font-family: 'Microsoft YaHei';
+                    font-size: 16px;
+                    border: 1px solid #85e0ed;
+                    margin-right: 15px;
+                    cursor: pointer;
+                    padding: 0px 5px;
+                }
+
+                    .model-extend-config-tab .tabs .tab.active {
+                        background-color: #fdf0ef;
+                        color: #76788d;
+                        border: 1px solid #eb6b61;
+                    }
+
+            .model-extend-config-tab .tab-content {
+                flex: 1;
+                display: flex;
+                overflow: hidden;
+            }
+
+        .model-extend-config-tab-footer {
+            height: 70px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .model-extend-config-tab-footer > button {
+                width: 210px;
+                height: 40px;
+                background-color: #1fb5ad;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                cursor: pointer;
+                border: none;
+            }
+
+                .model-extend-config-tab-footer > button[disabled] {
+                    cursor: not-allowed;
+                    opacity: .65;
+                }
+
+                .model-extend-config-tab-footer > button.save {
+                    margin-right: 111px;
+                    border: 1px solid #e0e0e0;
+                    background-color: #f8f8f8;
+                    color: #76788d;
+                }
+    </style>
+    <div class="model-extend-config-tab">
+        <div class="tabs">
+            <div class="tab" ng-repeat="tab in extendConfigManager.tabs" ng-class="{true:'active'}[tab.selected]" ng-click="extendConfigManager.tabClick(tab);">
+                {{tab.text}}
+            </div>
+        </div>
+        <div class="tab-content" ng-include="extendConfigManager.selectedTab.tpl"></div>
+    </div>
+    <div class="model-extend-config-tab-footer">
+        <button class="save" ng-disabled="!extendConfigManager.isAllowSavePublish" ng-click="extendConfigManager.save();">保存</button>
+        <button class="publish" ng-disabled="!extendConfigManager.isAllowSavePublish" ng-click="extendConfigManager.publish();">发布</button>
+    </div>
+</script>
+<!--扩展配置,登记,编辑,列表通用页-->
+<script type="text/ng-template" id="model-extend-config-tab-toolbar">
+    <style>
+        .model-config-table {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Microsoft YaHei';
+            color: #76788d;
+        }
+
+            .model-config-table.showRightBottomBorder {
+                border-right: 1px solid #e0e0e0;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .model-config-table .tr {
+                height: 48px;
+                display: flex;
+                align-items: center;
+                text-align: center;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .model-config-table .thead.tr {
+                background-color: #fbfbfb;
+                border-top: 1px solid #e8e8e8;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .model-config-table .tbody {
+                flex: 1;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+                .model-config-table .tbody .tr {
+                    cursor: move;
+                }
+
+                    .model-config-table .tbody .tr.ui-sortable-helper {
+                        border-top: 1px solid #e0e0e0;
+                    }
+
+            .model-config-table .tr-add {
+                cursor: default !important;
+            }
+
+            .model-config-table .tbody .tr:hover {
+                background-color: #f0f8fd;
+            }
+
+            .model-config-table .tbody .tr-add:hover {
+                background-color: #fff;
+            }
+
+            .model-config-table .tr .td, .model-config-table .tr-add > div {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .model-config-table .tr .td:first-child, .model-config-table .tr-add > div:first-child {
+                    border-left: 1px solid #e0e0e0;
+                }
+
+                .model-config-table .tr .td.lasttd, .model-config-table .tr-add > div:last-child {
+                    border-right: 1px solid #e0e0e0;
+                }
+
+                .model-config-table .tr .td.hiddenRightBorder, .model-config-table .tr-add > div.hiddenRightBorder {
+                    border-right: none;
+                }
+
+                .model-config-table .tr .td input {
+                    border: 1px solid white;
+                    text-align: center;
+                    box-shadow: none;
+                }
+
+                    .model-config-table .tr .td input:focus {
+                        border: 1px solid #3292ea !important;
+                    }
+
+                    .model-config-table .tr .td input[disabled] {
+                        background-color: #fff;
+                    }
+
+            .model-config-table .tr:hover .td input {
+                background-color: #f0f8fd;
+                border: 1px solid #f0f8fd;
+            }
+
+            .model-config-table .tr .td-del > span {
+                cursor: pointer;
+            }
+
+            .model-config-table .tr .td-add > button {
+                cursor: pointer;
+                background-color: #fff;
+                border: none;
+            }
+
+                .model-config-table .tr .td-add > button[disabled] {
+                    cursor: not-allowed;
+                }
+
+            .model-config-table .tr .td input[type="text"].td-input-ellipsis {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+    </style>
+    <div class="model-config-table" ng-class="{true:'showRightBottomBorder'}[extendConfigManager.toolbar.isShowCtmExtendTabTableTheaderOffset]">
+        <div class="thead tr">
+            <div class="col-md-1 td">序号</div>
+            <div class="col-md-3 td">按钮名称</div>
+            <div class="col-md-3 td">触发事件</div>
+            <div class="col-md-2 td">启用Web端</div>
+            <div class="col-md-2 td">启用移动端</div>
+            <div class="col-md-1 td lasttd" ng-class="{true:'hiddenRightBorder'}[extendConfigManager.toolbar.isShowCtmExtendTabTableTheaderOffset]">操作</div>
+            <div id="irm-extend-tab-table-theader-offset" style="display:none"></div>
+        </div>
+        <div class="tbody">
+            <div id="irm-extend-tab-table-tr-container">
+                <div ui-sortable ng-model="extendConfigManager.toolbar.pageExtendBtn">
+                    <div class="tr" ng-repeat="button in extendConfigManager.toolbar.pageExtendBtn">
+                        <div class="col-md-1 td">{{$index+1}}</div>
+                        <div class="col-md-3 td">
+                            <input type="text" class="form-control td-input-ellipsis" title="{{button.btnName}}" ng-disabled="button.isDefault" ng-model="button.btnName" ng-blur="extendConfigManager.toolbar.btnNameBlur(button,$event);" />
+                            <input type="hidden" value="{{::button.btnName}}" />
+                        </div>
+                        <div class="col-md-3 td">
+                            <input type="text" class="form-control td-input-ellipsis" title="{{button.btnEvent}}" ng-disabled="button.isDefault" ng-model="button.btnEvent" ng-blur="extendConfigManager.toolbar.btnEventBlur(button,$event);" />
+                            <input type="hidden" value="{{::button.btnEvent}}" />
+                        </div>
+                        <div class="col-md-2 td"><input type="checkbox" ng-model="button.isSupportPC" /></div>
+                        <div class="col-md-2 td"><input type="checkbox" ng-model="button.isSupportMobile" /></div>
+                        <div class="col-md-1 td lasttd td-del" ng-class="{true:'hiddenRightBorder'}[extendConfigManager.toolbar.isShowCtmExtendTabTableTheaderOffset]">
+                            <span ng-if="!button.isDefault" class="glyphicon glyphicon-trash" title="点击删除" ng-click="extendConfigManager.toolbar.del(button);"></span>
+                        </div>
+                    </div>
+                </div>
+                <form name="ecAddToolbarForm" novalidate="novalidate">
+                    <div class="tr tr-add">
+                        <div class="col-md-1">{{extendConfigManager.toolbar.pageExtendBtn.length+1}}</div>
+                        <div class="col-md-3" ng-class="{true:'has-error'}[extendConfigManager.toolbar.newBtn.verification.btnNameError]">
+                            <input type="text" class="form-control" name="btnName" ng-change="extendConfigManager.toolbar.btnNameChange();" ng-model="extendConfigManager.toolbar.newBtn.model.btnName" required />
+                        </div>
+                        <div class="col-md-3" ng-class="{true:'has-error'}[extendConfigManager.toolbar.newBtn.verification.btnEventError]">
+                            <input type="text" class="form-control" name="btnEvent" ng-change="extendConfigManager.toolbar.btnEventChange();" ng-model="extendConfigManager.toolbar.newBtn.model.btnEvent" required />
+                        </div>
+                        <div class="col-md-2"><input type="checkbox" ng-model="extendConfigManager.toolbar.newBtn.model.isSupportPC" /></div>
+                        <div class="col-md-2"><input type="checkbox" ng-model="extendConfigManager.toolbar.newBtn.model.isSupportMobile" /></div>
+                        <div class="col-md-1 td-add" ng-class="{true:'hiddenRightBorder'}[extendConfigManager.toolbar.isShowCtmExtendTabTableTheaderOffset]">
+                            <button ng-disabled="extendConfigManager.toolbar.newBtn.verification.saveError" class="glyphicon glyphicon-plus" title="点击添加" ng-click="extendConfigManager.toolbar.add();ecAddToolbarForm.$setPristine();ecAddToolbarForm.$setUntouched();"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+<!--扩展配置,标签页扩展,信息登记模型不用-->
+<script type="text/ng-template" id="model-extend-config-tab-tabPage">
+    <style>
+        .irm-ec-tab-tabpage {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Microsoft YaHei';
+            color: #76788d;
+            overflow: hidden;
+        }
+
+        .form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 15px;
+            margin-bottom: 16px;
+        }
+
+            .form-container .form-item {
+                margin-bottom: 15px;
+                border: 2px dashed #bbb;
+                border-radius: 4px;
+                position: relative;
+                cursor: move;
+                height: 226px;
+                min-height: 226px;
+            }
+
+                .form-container .form-item:last-child {
+                    margin-bottom: 0px;
+                }
+
+                .form-container .form-item .del {
+                    position: absolute;
+                    top: 7px;
+                    right: 10px;
+                    cursor: pointer;
+                    display: none;
+                }
+
+                .form-container .form-item > div.form-group {
+                    margin-bottom: 10px;
+                }
+
+                .form-container .form-item .form-group > label.control-label {
+                    font-weight: normal;
+                }
+
+                .form-container .form-item .form-group input[type="text"] {
+                    height: 32px;
+                }
+
+                .form-container .form-item:hover .del {
+                    display: block;
+                }
+
+        .form-add-container {
+            border: 2px dashed #6bb6d9;
+            font-family: 'Microsoft YaHei';
+            font-size: 18px;
+            color: #46a4d0;
+            height: 47px;
+            min-height: 47px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+    <div class="irm-ec-tab-tabpage">
+        <div class="form-container" ui-sortable ng-model="newModelMananer.newModel.extendConfig.tabs">
+            <div class="form-horizontal form-item" ng-repeat="tab in newModelMananer.newModel.extendConfig.tabs">
+                <div class="form-group" style="margin-top:15px;">
+                    <label class="col-sm-2 control-label">页签名称：</label>
+                    <div class="col-sm-9" ng-class="{true:'has-error'}[tab.hasError]">
+                        <input type="text" class="form-control f14" ng-disabled="extendConfigManager.tabPage.isFileTab(tab);" ng-change="extendConfigManager.tabPage.tabNameChange(tab);" name="tabName" ng-model="tab.tabName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Web端html模板：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control f14" ng-disabled="tab.isDefault||extendConfigManager.tabPage.isFileTab(tab);" name="pc_template" ng-model="tab.router.web.template" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Web端JS：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control f14" ng-disabled="tab.isDefault||extendConfigManager.tabPage.isFileTab(tab);" name="pc_templatejs" ng-model="tab.router.web.scripts" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="!(tab.isDefault&&!tab.router.mobile.template)">
+                    <label class="col-sm-2 control-label">移动端html模板：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control f14" ng-disabled="tab.isDefault||extendConfigManager.tabPage.isFileTab(tab);" name="m_template" ng-model="tab.router.mobile.template" />
+                    </div>
+                </div>
+                <!--<div class="form-group" ng-if="!(tab.isDefault&&!tab.router.mobile.scripts)">
+                    <label class="col-sm-2 control-label">移动端JS：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control f14" ng-disabled="tab.isDefault" name="m_templatejs" ng-model="tab.router.mobile.scripts" />
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">默认选中：</label>
+                    <div class="col-sm-9">
+                        <input type="checkbox" ng-model="tab.isSelected" ng-click="extendConfigManager.tabPage.handleDefaultSelect(tab,$event);" style="margin-top:11px;" />
+                    </div>
+                </div>
+                <div title="点击删除" ng-if="(!tab.isDefault)&&(!extendConfigManager.tabPage.isFileTab(tab))" class="del" ng-click="extendConfigManager.tabPage.del(tab);">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-add-container" ng-click="extendConfigManager.tabPage.add();">
+            添加页签
+        </div>
+    </div>
+</script>
+<!--扩展配置 扩展JS配置-->
+<script type="text/ng-template" id="model-extend-config-tab-extendJS">
+    <style>
+        .irm-ec-tab-extendjs {
+            flex: 1;
+            width: 100%;
+            padding-top: 15px;
+            font-family: 'Microsoft YaHei';
+            color: #76788d;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-unit {
+            display: flex;
+            flex: 1;
+        }
+
+            .form-unit .unit-label {
+                width: 190px;
+                text-align: right;
+            }
+
+            .form-unit .unit-control {
+                display: flex;
+                flex: 1;
+                padding-bottom: 15px;
+            }
+
+                .form-unit .unit-control textarea {
+                    height: auto;
+                    border-radius: 0;
+                }
+    </style>
+    <div class="irm-ec-tab-extendjs">
+        <div class="form-unit">
+            <div class="unit-label">列表页面扩展JS（Web端）：</div>
+            <div class="unit-control">
+                <textarea class="form-control" cols="3" ng-model="newModelMananer.newModel.extendConfig.extendJS.web.list" name="pcListJS"></textarea>
+            </div>
+        </div>
+        <div class="form-unit">
+            <div class="unit-label">登记页面扩展JS（Web端）：</div>
+            <div class="unit-control">
+                <textarea class="form-control" cols="3" ng-model="newModelMananer.newModel.extendConfig.extendJS.web.add" name="pcAddJS"></textarea>
+            </div>
+        </div>
+        <div class="form-unit">
+            <div class="unit-label">编辑页面扩展JS（Web端）：</div>
+            <div class="unit-control">
+                <textarea class="form-control" cols="3" ng-model="newModelMananer.newModel.extendConfig.extendJS.web.detail" name="pcDetailJS"></textarea>
+            </div>
+        </div>
+        <div class="form-unit">
+            <div class="unit-label">列表页面扩展JS（移动端）：</div>
+            <div class="unit-control">
+                <textarea class="form-control" cols="3" ng-model="newModelMananer.newModel.extendConfig.extendJS.mobile.list" name="mobileListJS"></textarea>
+            </div>
+        </div>
+        <div class="form-unit">
+            <div class="unit-label">登记页面扩展JS（移动端）：</div>
+            <div class="unit-control">
+                <textarea class="form-control" cols="3" ng-model="newModelMananer.newModel.extendConfig.extendJS.mobile.add" name="mobileAddJS"></textarea>
+            </div>
+        </div>
+        <div class="form-unit">
+            <div class="unit-label">编辑页面扩展JS（移动端）：</div>
+            <div class="unit-control">
+                <textarea class="form-control" cols="3" ng-model="newModelMananer.newModel.extendConfig.extendJS.mobile.detail" name="mobileDetailJS"></textarea>
+            </div>
+        </div>
+    </div>
+</script>

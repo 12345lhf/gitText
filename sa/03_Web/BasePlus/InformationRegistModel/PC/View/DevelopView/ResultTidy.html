@@ -1,0 +1,154 @@
+﻿<div ng-controller="outcomeResultTidyController" style="height:100%;background-color:rgba(248, 248, 248, 1)">
+    <link mispt-href="/BasePlus/InformationRegistModel/PC/CSS/OutcomeDelivery.css" rel="stylesheet" />
+    <div class="" style="padding:10px;height:100%;padding-left:60px;">
+        <div class="col-md-5" style="height:100%; border:2px solid #ddd; background-color:#fff;margin-right:-30px;z-index:9999">
+            <div id="taskResult" style="margin-right: -15px; margin-left: -15px;" lz-scrollable-vertical="15" lz-scroll-container="misptmodal" lz-scroll-change-container="misptmodal" lz-scrollbar-show=true>
+                <div ng-include="'detail'" style="height:100%">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2" style="height:100%">
+            <!--display:flex;justify-content:center;align-items: center;height:100%;flex-direction: column;-->
+            <div style="top:45%;bottom:45%;min-height:100px;width:100%;position:absolute;height:20%;padding-left: 35px;">
+                 <div><button class="btn btn-default btn-lg" title="移动文件" ng-click="eventManage.addResule()"><span class="icon-double-angle-right"></span></button></div>
+            <div style="margin-top: 15px;"><button class="btn btn-default btn-lg" title="删除文件" ng-click="eventManage.delFiles()"><span class="icon-remove"></span></button></div>
+
+            </div>
+            <!--<div style="height: 50%;text-align: center; position: static;padding-top: 200%;"><button class="btn btn-default btn-lg" title="移动文件" ng-click="eventManage.addResule()"><span class="icon-double-angle-right"></span></button></div>
+            <div style="text-align: center;    margin-top: 10px;position: inherit;"><button class="btn btn-default btn-lg" title="删除文件" ng-click="eventManage.delFiles()"><span class="icon-remove"></span></button></div>-->
+        </div>
+        <div class="col-md-5 pull-right" style="height:100%;border:2px solid #ddd; background-color:#fff;margin-left: -30px; margin-right:60px;">
+            <div style="margin-right:-15px ; margin-left: -15px;" id="ProjectResult" lz-scrollable-vertical="15" lz-scroll-container="misptmodal" lz-scroll-change-container="misptmodal" lz-scrollbar-show=true>
+                <div ng-include="'Projectdetail'" style="height:100%">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="detail">
+    <!--详情页-->
+    <div class="upload-detail-container1">
+        <div class="upload-detail-source">
+            <div ><!--title="{{taskname}}"-->
+                <!--表头区-->
+                <!--<div class="row upload-tree-grid-row hidden-sm hidden-xs">
+                    <div class="col-xs-12 col-sm-12 col-md-7 upload-tree-grid-cell resource-tree-head">
+                        <i class="file-icons folder"></i>
+                        {{taskname}}
+                    </div>
+                </div>-->
+                <div>
+                    <ul class="list-nostyle" ng-include="'misptUploadTreeStruct_edit.html'"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="Projectdetail">
+    <!--详情页-->
+    <div class="upload-detail-container1">
+        <div class="upload-detail-source">
+            <!--表头区-->
+            <div class="row upload-tree-grid-row1 hidden-sm hidden-xs " ng-click="rowclick($event, Projectdata)" ng-class="{true:'active',false:''}[treeactive==Projectdata.id]">
+                <div class="col-xs-12 col-sm-12 upload-tree-grid-cell1" style="padding: 6px 15px;">
+                    <div class="row upload-tree-grid-row1">
+                        <span ng-click="closefile(extend)"
+                              ng-class="{true: 'iconSwitch icon-caret-right', false: 'iconSwitch icon-caret-down'}[extend]">
+                        </span>
+                        <i class="file-icons folder"></i>
+                        <span class="color999  spantit" title="{{title}}">{{title}}</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="list-nostyle" style="padding-left:10px" ng-include="'misptUploadTreeStruct_edit1.html'" ng-show="!extend"></ul>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="misptUploadTreeStruct_edit.html">
+    <!--文件夹节点-->
+    <li ng-init="level=level+1;parent=data;" ng-repeat="item in data.children">
+        <!--展示文件夹-->
+        <div class="row upload-tree-grid-row1" ng-mouseleave="closeme($event,item)" ng-click="" ng-class="{true:'active',false:''}[item.check]">
+            <div class="col-xs-12 col-sm-12 col-md-7 upload-tree-grid-cell1 upload-tree-td1" lz-iconautohidden>
+                <b class="blank" ng-style="{'width':level*15+'px'}"></b>
+                <span ng-click="ExtendResource(item)" ng-init="item.extend=false"
+                      ng-class="{true: 'iconSwitch icon-caret-down', false: 'iconSwitch icon-caret-right'}[item.extend]" class="iconSwitch icon-caret-right">
+                </span>
+                <i class="file-icons folder"></i>
+                <span class="color999 spantit" title="{{item.name}}">{{item.name}}</span>
+            </div>
+
+
+        </div>
+        <!--查看该文件夹的子目录结构-->
+        <ul class="list-nostyle" ng-show="item.extend" ng-include="'misptUploadTreeStruct_edit.html'" ng-init="data=item"></ul>
+    </li>
+    <!--文件节点-->
+    <li ng-init="level=level+1;parent=data;" ng-repeat="item in data.resourcemodels">
+        <div class="row upload-tree-grid-row1" ng-mouseleave="closeme($event,item)" ng-click="" ng-class="{true:'active',false:''}[item.check]">
+
+            <div class="col-xs-12 col-sm-12 col-md-7 upload-tree-grid-cell1 upload-tree-td1" style="padding-left:2px" ng-hide="item.edit" lz-iconautohidden>
+                <b class="blank" ng-style="{'width':level*15+'px'}"></b>
+                <span class="iconSwitch"></span>
+                <input type="checkbox" ng-model="item.ischeck" ng-click="addlist(item)" />
+
+                <span ng-if="true" class="file-icons file-show-img">
+                    <i class="file-icons file-show-img">
+                        <img src="/Base/PC/Image/img-default.gif" lz-img="item.icon" img-type="'icon'" wh-size="32X32" err-src="/Base/PC/Image/nopic.jpg" />
+                    </i>
+                </span>
+                <span class="spantit" title="{{item.showname}}">{{item.showname}}</span>
+
+            </div>
+
+        </div>
+    </li>
+
+</script>
+<script type="text/ng-template" id="misptUploadTreeStruct_edit1.html" >
+    <!--文件夹节点-->
+    <li ng-init="level=level+1;parent=Projectdata;" ng-repeat="item in Projectdata.children">
+        <!--展示文件夹-->
+
+        <div class="row upload-tree-grid-row1" ng-click="rowclick($event, item)" ng-class="{true:'active',false:''}[treeactive==item.id]">
+            <div class="col-xs-12 col-sm-12  upload-tree-grid-cell1 upload-tree-td1" lz-iconautohidden>
+                <b class="blank" ng-style="{'width':level*15+'px'}"></b>
+                <span ng-click="projectExtendResource(item)" ng-init="item.projectextend=false"
+                      ng-class="{true: 'iconSwitch icon-caret-down', false: 'iconSwitch icon-caret-right'}[item.projectextend]" class="iconSwitch icon-caret-right">
+                </span>
+                <div>
+                    <i class="file-icons folder"></i>
+                    <span class="color999  spantit" title="{{item.name}}">{{item.name}}</span>
+                </div>
+            </div>
+        </div>
+        <!--查看该文件夹的子目录结构-->
+        <ul class="list-nostyle" ng-show="item.projectextend" ng-include="'misptUploadTreeStruct_edit1.html'"  ng-init="Projectdata=item"></ul>
+    </li>
+    <!--文件节点-->
+    <li ng-init="level=level+1;parent=Projectdata;" ng-repeat="item in Projectdata.resourcemodels">
+        <div class="row upload-tree-grid-row1" ng-mouseleave="closeme($event,item)" ng-click="" ng-show="!item.isShow">
+
+            <div class="col-xs-12 col-sm-12 col-md-7 upload-tree-grid-cell1 upload-tree-td1" style="padding-left:2px" ng-hide="item.edit" lz-iconautohidden>
+                <b class="blank" ng-style="{'width':level*15+'px'}"></b>
+                <span class="iconSwitch"></span>
+
+                <input type="checkbox" ng-model="item.ischeck" ng-click="addProjectlist(item)" />
+                <span ng-if="true" class="file-icons file-show-img">
+                    <i class="file-icons file-show-img">
+                        <img src="/Base/PC/Image/img-default.gif" lz-img="item.icon" img-type="'icon'" wh-size="32X32" err-src="/Base/PC/Image/nopic.jpg" />
+                    </i>
+                </span>
+                <span class="spantit" title="{{item.showname}}">{{item.showname}}</span>
+
+            </div>
+
+        </div>
+    </li>
+
+</script>
+

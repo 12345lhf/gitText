@@ -1,0 +1,58 @@
+﻿<link href="BasePlus/InformationRegistModelDesign/Common/CSS/Common.css" rel="stylesheet" />
+<link href="/BasePlus/MISPTFramework/PC/CSS/MISPT_Modal.css" rel="stylesheet" />
+<link href="/BasePlus/MISPTFramework/PC/CSS/Common.css" rel="stylesheet" />
+
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Controls.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Resource.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Project.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/MISPT_Dialog.js"></script>
+
+
+
+<script src="/BasePlus/InformationRegistModelDesign/Common/JS/Toos.js"></script>
+<script src="/BasePlus/InformationRegistModelDesign/PC/JS/IRMControlModel.js"></script>
+
+<div ng-controller="InformationRegistModelDesignIndexController" class="irm-des-index">
+    <style>
+        .irm-des-index {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .irm-des-header {
+            height: 50px;
+            padding: 7px 15px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+            .irm-des-header .btn-item {
+                font-family: 'Microsoft YaHei';
+                color: #646464;
+                font-size: 16px;
+                height: 36px;
+                width: 134px;
+                background-color: #fff;
+                border-radius: 0;
+            }
+
+                .irm-des-header .btn-item.selected-btn {
+                    background-color: #e25050;
+                    color: #fff;
+                }
+
+        .irm-des-body {
+            width: 100%;
+            flex: 1;
+            position: relative;
+        }
+    </style>
+    <div class="irm-des-header">
+        <button class="btn btn-item" ng-class="{true:'selected-btn',false:''}[showbtnindex==1]" ng-click="goModuleList($event)">模块列表</button>
+        <button class="btn btn-item" ng-class="{true:'selected-btn',false:''}[showbtnindex==2]" ng-click="goControlList($event)">控件列表</button>
+    </div>
+    <div class="irm-des-body">
+        <ui-view style="width:100%;position:absolute;height:100%;"></ui-view>
+    </div>
+</div>

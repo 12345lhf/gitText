@@ -1,0 +1,23 @@
+﻿<link href="/BasePlus/MISPTFramework/PC/CSS/Common.css" rel="stylesheet" />
+
+<!-- 通用服务—— 脚本 -->
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Controls.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Resource.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Project.js"></script>
+
+<div class="main-container" style="position:relative;" ng-controller="IRM_Test_MainController">
+    <div class="container" ng-show="isShowTable" style="height:100%;overflow:auto;">
+        <table class="table table-bordered table-bordered table-hover">
+            <thead><tr><th>模块名称</th><th>操作</th></tr></thead>
+            <tr ng-repeat="model in AppModules">
+                <td>{{model.name}}</td>
+                <td style="margin:5px">
+                    <button class="btn btn-default" ng-click="goModel(model)">进入列表</button>
+                    <button class="btn btn-default" ng-click="goModelManager(model)">进入模板管理</button>
+                    <button class="btn btn-default" ng-click="goUserField(model)">进入用户扩展字段</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div ui-view="" style="height:100%"></div>
+</div>

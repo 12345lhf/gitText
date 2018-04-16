@@ -1,0 +1,22 @@
+﻿<div>
+    <div class='col-sm-9'>
+        <ul class='list-inline mispt-form-member' style='overflow:hidden;' ng-style="{'padding-left':isReadOnly === true ? '11px' : '' }">
+            <li ng-repeat='user in members'ng-if="user.utype!=1">
+                <span  style='display: flex;align-items: center;' class='userValid'lz-cooperationusercard lz-uid='user.uid' >
+
+                    <!-- lzirm-cooperationusercard readonly="isReadOnly"  lz-uid='user.uid' bid="businessModuleId" lz-type="user.utype" scenecode="sceneCode" lz-tid="tid" lz-Placement="right" lz-appcode="{{appcode}}" -->
+                    <img id='userimg' class='lzUserImg32 img-circle' lz-img='user.face' wh-size='32X32' err-src='/BasePlus/MISPTFramework/PC/Images/img.gif' />
+                    <span style='width:59px;overflow:hidden' class='facenamespan user-name'>
+                        <span class='ellipsis'>{{user.user.username}}</span>
+                    </span>
+                </span>
+            </li>
+            <li ng-show="{{!isReadOnly}}" class='userBtn' title='添加成员' lz-Commonpersonselect lz-IsAllowSelfDel='true' lz-Rangeoeid=selectoid lz-isselectsingle={{issingle}} lz-Getpersonhave='userManager.getPersonHave()' lz-Pickclick='userManager.onDealSelectedUser(args)'>
+                <button type='button' class='btn btn-default btn-circle lzUserImg32' data-original-title='添加成员'>
+                    <i class='icon-plus'></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+

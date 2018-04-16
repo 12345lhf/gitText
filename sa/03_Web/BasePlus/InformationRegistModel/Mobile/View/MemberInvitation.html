@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>任务邀请</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href="../../../../../../Components/Mobile/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="../../../../../../Components/Mobile/mui/css/mui.picker.css" rel="stylesheet" />
+    <link href="../../../../../../Components/Mobile/mui/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="../../../../../../BasePlus/MISPTModule/Mobile/CSS/Common.css" rel="stylesheet" />
+</head>
+<body>
+    <style>
+        .lzm-form-item-title > label {
+            padding-left: 10px;
+            width: 120px;
+        }
+
+        .lzm-form-item-content {
+            padding-left: 120px;
+        }
+
+        .placeholder-span {
+            float: none;
+            padding-left: 25px;
+        }
+
+        #div_showTipMsg2Accept {
+            padding-top: 10px;
+        }
+    </style>
+     <div class="mui-content" id="div_Cotent" style="display:none;">
+        <form class="mui-input-group lzm-form">
+            <!--            邀请人-->
+            <div class="mui-input-row lzm-form-group">
+                <div class="lzm-form-item-title">
+                    <label>&nbsp;邀请人</label>
+                </div>
+                <div class="lzm-form-item-content">
+                    <input type="text" id="txt_user" readonly="readonly" class="lzm-default-value" value="">
+                </div>
+            </div>
+            <!--            邀请项目-->
+            <div class="mui-input-row lzm-form-group">
+                <div class="lzm-form-item-title">
+                    <label>&nbsp;任务名称</label>
+                </div>
+                <div class="lzm-form-item-content">
+                    <input type="text" id="taskname" readonly="readonly" class="lzm-default-value" value="">
+                </div>
+            </div>
+             <div class="mui-input-row lzm-form-group">
+                <div class="lzm-form-item-title">
+                    <label>&nbsp;邀请时间</label>
+                </div>
+                <div class="lzm-form-item-content">
+                    <input type="text" id="teamdate" readonly="readonly" class="lzm-default-value" value="">
+                </div>
+            </div>
+            <!--            当前参与人身份-->
+            <div class="mui-table-view-cell lzm-form-group" id="div_orgName" style="display:none;">
+                <div id="div_selectorg" class="mui-navigate-right">
+                    参与身份
+                    <span style="padding-left:40px" data-type="select" id="span_orgName" class="placeholder-span">请选择</span>
+                </div>
+            </div>
+           
+            <!--            邀请的按钮-->
+            <div class="mui-content-padded" id="div_button" style="display:none;">
+                <button type="button" id="btn_accept" class="mui-btn mui-btn-primary mui-btn-block">
+                    接受邀请
+                </button>
+                <button type="button" id="btn_ignore" class="mui-btn  mui-btn-block">
+                    忽略
+                </button>
+            </div>
+            <!--            接受邀请以后：参与人身份 -->
+            <div class="mui-input-row lzm-form-group" id="div_orgInfo2Accept" style="display:none;">
+               <div class="lzm-form-item-title">
+                    <label>&nbsp;参与身份</label>
+                </div>
+                <div class="lzm-form-item-content">
+                    <input type="text" id="txt_orgName2Accept" readonly="readonly" class="lzm-default-value" value="">
+                </div>
+            </div>
+            <!--            接受邀请以后：项目查看方式-->
+            <div class="mui-input-row lzm-form-group" id="div_finishmessage" style="display:none;">
+                <div class="lzm-form-item-title">
+                    <label>项目查看方式</label>
+                </div>
+                <div class="lzm-form-item-content" id="div_showTipMsg2Accept" />
+            </div>
+            <div style="height:10px;">&nbsp;</div>
+        </form>
+    </div>
+    <!--            邀请接受、已忽略以后的提示按钮-->
+    <div class="mui-content-padded" id="div_tipbutton" style="display:none;margin-top:20px;">
+        <button disabled="disabled" type="button" id="btn_isAccepted" class="mui-btn mui-btn-primary mui-btn-block" style="display:none;">
+            已同意
+        </button>
+        <button  disabled="disabled"  type="button" id="btn_isIgnored" class="mui-btn mui-btn-primary mui-btn-block" style="display:none;">
+            已忽略
+        </button>
+    </div>
+
+    <script src="../../../../../../Components/Mobile/mui/js/mui.js"></script>
+    <script src="../../../../../../Components/Mobile/mui/js/mui.picker.js"></script>
+    <script src="../../../../../../Components/Mobile/mui/js/mui.poppicker.js"></script>
+    <script src="../../../../../../BasePlus/MISPTModule/Mobile/JS/Common.js"></script>
+    <script src="../../../../../../Base/Mobile/JS/LeadingCloud.js"></script>
+    <script src="../../../../../../Base/Mobile/JS/LzFileSDK.js"></script>
+    <script src="../JS/MemberInvitation.js"></script>
+</body>
+</html>

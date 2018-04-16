@@ -1,0 +1,140 @@
+﻿
+.irm-class-list,
+.irm-class-main,
+.irm-class-left {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+
+.irm-class-left {
+    display: flex;
+    flex-direction: column;
+    width: 251px;
+    padding: 12px;
+    background-color: #f1f1f1;
+}
+
+@media screen and(-ms-high-contrast:active), (-ms-high-contrast:none) {
+    /*兼容IE11*/
+    .irm-class-left {
+        width: 275px;
+    }
+}
+
+.irm-class-list .irm-class-top {
+    display: block;
+    background-color: #1fb5ad;
+    width: 227px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+    color: #fff;
+    vertical-align: middle;
+    box-shadow: 0 2px 8px 0 rgba(31, 181, 173,.15);
+}
+
+.irm-class-description {
+    padding-left: 30px;
+    width: 190px;
+    display: inline-block;
+}
+
+.irm-class-add {
+    cursor: pointer;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-image: url('/BasePlus/InformationRegistModelDesign/PC/Images/class/iconAdd.png');
+    background-repeat: no-repeat;
+    background-position-x: 4px;
+    background-position-y: 8px;
+}
+
+.irm-class-items {
+    display: block;
+    width: 227px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.15);
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: pointer;
+}
+
+    .irm-class-items ul {
+        padding: 0;
+        margin: 0;
+    }
+
+.irm-class-item {
+    display: inline-flex;
+    width: 227px;
+    height: 40px;
+    border: 1px solid #f1eff3;
+    line-height: 40px;
+    padding-left: 26px;
+    background-color: #fff;
+    border-top: 0;
+}
+
+    .irm-class-item:focus,
+    .irm-class-item:hover,
+    .irm-class-item:active {
+        background-color: #f1eff3;
+    }
+
+    .irm-class-item.active {
+        background-color: #f1eff3;
+    }
+
+.irm-class-item-name {
+    display: inline-block;
+    width: 125px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.irm-class-item-update, .irm-class-item-delete {
+    display: none;
+    margin: 13px 5px;
+    width: 14px;
+    height: 14px;
+    /*margin-right: 10px;*/
+    cursor: pointer;
+}
+
+.irm-class-item:hover .irm-class-item-update {
+    display: inline-block;
+    background-image: url('/BasePlus/InformationRegistModelDesign/PC/Images/class/iconAA.png');
+    background-repeat: no-repeat;
+}
+
+.irm-class-item:hover .irm-class-item-delete {
+    display: inline-block;
+    background-image: url('/BasePlus/InformationRegistModelDesign/PC/Images/class/iconAB.png');
+    background-repeat: no-repeat;
+}
+
+
+.irm-class-item-point {
+    display: inline-block;
+    margin-top: 13px;
+    width: 14px;
+    height: 14px;
+    background-image: url('/BasePlus/InformationRegistModelDesign/PC/Images/class/iconPoint.png');
+    background-repeat: no-repeat;
+    background-position-x: 4px;
+    background-position-y: 4px;
+}
+
+/*搜索框的文字提示*/
+.irm-btn-module-name {
+    float: left;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}

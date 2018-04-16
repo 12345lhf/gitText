@@ -1,0 +1,81 @@
+﻿<div>
+    <div class="col-sm-9" ng-if="!(page=='detail')" style="margin-top:-7px">
+        <link mispt-href="/BasePlus/MISPTFramework/PC/CSS/PictureDirect.css" rel="stylesheet" />
+        <div class="photo-container">
+            <div class="photo-toolbar">
+                <div class="photo-toolbar-upload" ng-if="!newManager.isShowDelPhoto">
+                    <span class="img-upload-span" title="上传图片" ngf-select="newManager.uploadPhoto($files)" ngf-allow="{{allowImageFormats}}" ngf-unallow="" ngf-multiple="true" accept="image/*">
+                        <img src="/AppPlus/ConstructionSiteCollaboration/PC/Images/iconUp.png" />
+                    </span>
+                    <span ng-if="newManager.filePostData.resourcemodels.length>0" class="img-del-span" title="删除图片" ng-click="newManager.showDelPhoto();">
+                        <img src="/AppPlus/ConstructionSiteCollaboration/PC/Images/iconDel.png" />
+                    </span>
+                </div>
+                <div class="photo-toolbar-del" ng-if="newManager.isShowDelPhoto">
+                    <span title="确定" ng-click="newManager.batchDeleteDealBeforePhotos();">确定</span>
+                    <span title="取消" ng-click="newManager.closeDelPhoto();">取消</span>
+                </div>
+            </div>
+            <div class="photo-list">
+                <div class="photo-item" ng-repeat="photo in newManager.filePostData.resourcemodels">
+                    <div ng-if="!newManager.isShowDelPhoto" class="img-div">
+                        <img width="136" height="102" ng-src="{{photo.iconurl}}" lz-img-gallery="{{photo.rid}}" img-name="{{photo.showname}}" err-src="/Base/PC/Image/nopic.jpg" />
+                    </div>
+                    <div ng-if="newManager.isShowDelPhoto" class="img-div" ng-click="newManager.selectPhotoClick(photo);">
+                        <img width="136" height="102" ng-src="{{photo.iconurl}}" err-src="/Base/PC/Image/nopic.jpg" />
+                    </div>
+                    <div class="del-div" ng-click="newManager.selectPhotoClick(photo);">
+                        <img ng-if="newManager.isShowDelPhoto&&photo.delChecked" src="/AppPlus/ConstructionSiteCollaboration/PC/Images/ok_green.png" />
+                        <img ng-if="newManager.isShowDelPhoto&&!photo.delChecked" src="/AppPlus/ConstructionSiteCollaboration/PC/Images/ok_white.png" />
+                    </div>
+                </div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- style="margin-top:-7px" -->
+    <div class="col-sm-9" ng-if="page=='detail'">
+        <link mispt-href="/BasePlus/MISPTFramework/PC/CSS/PictureDirect.css" rel="stylesheet" />
+        <div class="photo-containerdetail" style="margin-left: -3px;" ng-if="!(detailManager.isReadOnly&&dealBeforeFileManager.dealBeforePhotos.length<=0)">
+            <div class="photo-toolbar" ng-if="!detailManager.isReadOnly">
+                <div class="photo-toolbar-upload" ng-if="!dealBeforeFileManager.isShowDelPhoto">
+                    <span class="img-upload-span" title="上传图片" ngf-select="dealBeforeFileManager.uploadDealBeforePhotos($files)" ngf-multiple="true" accept="image/*" ngf-allow="{{allowImageFormats}}" ngf-unallow="">
+                        <img src="/AppPlus/ConstructionSiteCollaboration/PC/Images/iconUp.png" />
+                    </span>
+                    <span ng-if="dealBeforeFileManager.dealBeforePhotos.length>0" class="img-del-span" title="删除图片" ng-click="dealBeforeFileManager.showDelPhoto();">
+                        <img src="/AppPlus/ConstructionSiteCollaboration/PC/Images/iconDel.png" />
+                    </span>
+                </div>
+                <div class="photo-toolbar-del" ng-if="dealBeforeFileManager.isShowDelPhoto">
+                    <span title="确定" ng-click="dealBeforeFileManager.batchDeleteDealBeforePhotos();">确定</span>
+                    <span title="取消" ng-click="dealBeforeFileManager.closeDelPhoto();">取消</span>
+                </div>
+            </div>
+            <div class="photo-list">
+                <div style="height:10px; width: 100%;" ng-if="detailManager.isReadOnly"></div>
+                <div class="photo-item" ng-repeat="photo in dealBeforeFileManager.dealBeforePhotos">
+                    <div class="img-div" ng-if="dealBeforeFileManager.isShowDelPhoto" ng-click="dealBeforeFileManager.selectPhotoClick(photo);">
+                        <img lz-img="photo.expid" img-type="'original'" err-src="/Base/PC/Image/nopic.jpg" />
+                    </div>
+                    <div class="img-div" ng-if="!dealBeforeFileManager.isShowDelPhoto" lz-common-resource-gallery-show="" resource="photo" showcomment="false" showcommentbutton="false" custom="false" title="{{photo.showname}}">
+                        <img lz-img="photo.expid" img-type="'original'" err-src="/Base/PC/Image/nopic.jpg" />
+                    </div>
+                    <div class="del-div" ng-click="dealBeforeFileManager.selectPhotoClick(photo);">
+                        <img ng-if="dealBeforeFileManager.isShowDelPhoto&&photo.delChecked" src="/AppPlus/ConstructionSiteCollaboration/PC/Images/ok_green.png" />
+                        <img ng-if="dealBeforeFileManager.isShowDelPhoto&&!photo.delChecked" src="/AppPlus/ConstructionSiteCollaboration/PC/Images/ok_white.png" />
+                    </div>
+                </div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+                <div class="fix"></div>
+            </div>
+        </div>
+        <div class="photo-none" ng-if="detailManager.isReadOnly&&dealBeforeFileManager.dealBeforePhotos.length<=0">无</div>
+    </div>
+</div>

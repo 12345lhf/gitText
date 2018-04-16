@@ -1,0 +1,154 @@
+﻿.img-list {
+    display: flex;
+    width: 100%;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 0;
+    padding: 5px;
+    padding-top:0;
+    overflow: hidden;
+}
+
+    .img-list.no-item {
+        padding: 0;
+    }
+
+no-item .img-list-item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.img-list-item span.mui-icon {
+    padding: 2px 4px;
+}
+
+.show-remove .img-list-item > span {
+    display: inline;
+}
+
+.img-list-item > span:before {
+    font-size: 20px;
+    color: #e5e5e5;
+}
+
+.show-remove .img-list-item[selected="true"] > span {
+}
+
+    .show-remove .img-list-item[selected="true"] > span:before {
+        color: #1ed335;
+    }
+
+.show-remove-span:before {
+    color: #1ed335;
+}
+
+.img-list-item > span {
+    position: absolute;
+    display: none;
+    right: 0;
+    padding: 1px 3px 0 0;
+}
+
+.img-list-item img {
+    width: 97px;
+    height: 97px;
+}
+
+
+.img-list-item {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 2px;
+}
+
+@media(min-device-width:320px) {
+    /**/
+    .img-list-item img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .img-list-item {
+        padding-bottom: 4px;
+    }
+}
+
+@media(min-device-width:360px) {
+    .mui-col-xs-4 {
+        width: 25%;
+    }
+
+    .img-list-item {
+        padding-bottom: 2px;
+    }
+        /*iphone6*/
+        .img-list-item img {
+            width: 85px;
+            height: 85px;
+        }
+}
+
+@media(min-device-width:375px) {
+    .mui-col-xs-4 {
+        width: 25%;
+    }
+    /*iphone6*/
+    .img-list-item img {
+        width: 88px;
+        height: 88px;
+    }
+}
+
+@media(min-device-width:414px) {
+    .img-list-item img {
+        width: 80px;
+        height: 80px;
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        /*iphone6plus*/
+        .img-list-item img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+.img-list-toolbar > div > span.icon-hide {
+    display: none;
+}
+
+.img-list-toolbar > div > span.icon-show {
+    display: initial;
+}
+
+.img-list-toolbar {
+    text-align: right;
+    padding-right: 6px;
+    height:40px;
+    line-height:40px;
+    /*padding-top: 7px;*/
+}
+    .img-list-toolbar > span {
+        padding: 6px;
+    }
+
+.imglist-btn {
+    font-family: 'Microsoft YaHei';
+    height: 40px;
+    padding-bottom:0;
+    padding-top:0;
+    font-size: 15px;
+    padding-left: 4px;
+}
+
+.icon-hide {
+display:none;
+}

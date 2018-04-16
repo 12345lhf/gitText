@@ -1,0 +1,908 @@
+﻿@charset "utf-8";
+/*********************************************************
+ * 创建者：lz-zyf
+ * 创建日期：2017-03-01 14:18:48
+ * 描述：协作模型【新建】页面样式
+ * 维护：
+ * *******************************************************/
+body, input, select, textarea {
+    font-size: 15px;
+}
+
+/*表单 - form*/
+.lzm-form {
+    background-color: #efeff4;
+}
+/*表单 - 控件 - 分组*/
+.lzm-form-group {
+    position: relative;
+    background-color: #FFF;
+    margin-top: 5px;
+}
+    /*表单 - 控件 - 分组 - 边框*/
+    .lzm-form-group:before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 1px;
+        content: '';
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+        background-color: #c8c7cc;
+    }
+
+    .lzm-form-group:after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0px;
+        height: 1px;
+        content: '';
+        -webkit-transform: scaleY(.5);
+        transform: scaleY(.5);
+        background-color: #c8c7cc;
+        /*background-color: red;*/
+    }
+
+    .lzm-form-group label {
+        padding: 12px 15px;
+        width: 90px;
+    }
+
+.lzm-form-item-content {
+    padding-left: 100px;
+    font-size: 14px;
+    margin: 1px 0;
+}
+
+    .lzm-form-item-content input, .lzm-form-item-content select, .lzm-form-item-content textarea {
+        margin-bottom: 0;
+        padding-left: 0;
+        border: 0;
+    }
+/*覆盖样式*/
+.mui-input-group .mui-input-row {
+    height: unset;
+    height: initial;
+}
+    /*覆盖样式*/
+    .lzm-form .lzm-form-group:after, .mui-input-group .mui-input-row:after {
+        left: 0px;
+    }
+
+.principal-personnel-portrait {
+    line-height: 32px;
+    max-width: 32px;
+    height: 32px;
+}
+
+.createuser-face {
+    margin-top: 2px;
+}
+/*负责人*/
+.principal-personnel-name {
+    margin-left: 5px;
+    width: 120px;
+    font-size: 13px;
+}
+
+.placeholder-right-span {
+    color: #A9A9A9;
+    width: 180px;
+    font-size: 15px;
+}
+
+.mui-btn-block {
+    padding: 8px 0;
+}
+
+.placeholder-span {
+    float: right;
+    margin-right: 20px;
+    color: #A9A9A9;
+}
+
+.lzm-display-none {
+    display: none;
+}
+
+.personnel-title-bar {
+}
+
+    .personnel-title-bar label {
+        /*width: 320px;
+        padding: 12px 15px;*/
+    }
+
+.personnel-bar {
+    height: 35px;
+    line-height: 35px;
+    padding-left: 40px;
+    overflow: hidden;
+}
+
+.personnel-content {
+    overflow: hidden;
+    margin-right: 105px;
+    height: 35px;
+    line-height: 35px;
+}
+
+.lzm-form-item-content .personnel-content-notalk {
+    margin-right: 60px;
+    padding-top: 1px;
+}
+
+.lzm-form-item-content .personnel-tool {
+    margin-top: -31px;
+    margin-right: 40px;
+}
+
+.personnel-content-notalk {
+    overflow: hidden;
+    margin-right: 40px;
+    height: 38px;
+    line-height: 38px;
+}
+
+    .personnel-content .personnel-face-item, .personnel-content-notalk .personnel-face-item {
+        margin-right: 5px;
+        margin-top: 2px;
+    }
+
+
+/*#region =================== 覆盖mui样式  ===================*/
+/*下拉刷新 - 横线*/
+.mui-table-view:before, .mui-table-view:after {
+    background: none;
+}
+/*取消三行显示问题---》显示三行半*/
+/*.lzm-form-item-content textarea, .mui-input-group textarea {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}*/
+/*覆盖选择器显示时样式*/
+.mui-poppicker {
+    visibility: hidden;
+}
+
+    .mui-poppicker.mui-active {
+        visibility: visible;
+    }
+
+/*#region ios 样式修改 */
+.mui-ios textarea {
+    margin-left: -3px;
+}
+/*#endregion */
+
+/*#region 等待提醒*/
+.lz-bottom-loading .mui-pull-bottom-pocket .mui-pull-caption {
+    visibility: hidden !important;
+}
+
+.lz-bottom-loading .mui-pull-bottom-pocket .mui-pull-loading {
+    visibility: hidden !important;
+}
+/*#endregion*/
+
+/*#endregion */
+
+/*#region =================== 全局样式  ===================*/
+.lzm-loading {
+    position: fixed;
+    z-index: 998;
+    top: 40%;
+    left: 50%;
+    height: 100px;
+    width: 120px;
+    margin-left: -60px;
+    margin-top: -40px;
+    background: rgba(0,0,0,.8) url(../Images/loading.gif) no-repeat 42.5px 20px;
+    background-size: 35px;
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 70px;
+    color: #FFF;
+}
+
+.lzm-error {
+    position: fixed;
+    z-index: 998;
+    top: 40%;
+    left: 50%;
+    height: 100px;
+    width: 160px;
+    margin-left: -80px;
+    margin-top: -40px;
+    background: rgba(0,0,0,.9) url(../Images/error.jpg) no-repeat 62.5px 20px;
+    background-size: 35px;
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 70px;
+    color: #FFF;
+}
+
+.hide-select {
+    display: none;
+}
+
+.disabled-select {
+    opacity: 6;
+}
+
+    .disabled-select:after {
+        display: none;
+    }
+/*#region 列表无数据 */
+
+.lzm-page-nocont {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: auto;
+    margin-top: 100px;
+    bottom: auto;
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+}
+
+    .lzm-page-nocont .nocont-img {
+        display: block;
+        width: 100px;
+        height: 80px;
+        background: url('../../Common/Images/noContImg.png') center top no-repeat;
+        margin: 0 auto 0;
+        color: #ccc;
+    }
+
+    .lzm-page-nocont .nocont-desc {
+        color: Rgba(0,0,0,0.20);
+        font-size: 16px;
+        line-height: 34px;
+        min-height: 34px;
+        text-align: center;
+    }
+
+/*#endregion */
+
+body, input, select, textarea {
+    font-size: 15px;
+}
+
+body, label, input, textarea {
+    /*font-family: Helvetica;*/
+    font-family: 微软雅黑 !important;
+}
+
+.lzm-display-block {
+    display: block;
+}
+
+.lzm-display-none {
+    display: none;
+}
+/*原型图片*/
+.lzm-img-circle {
+    border-radius: 50%;
+    border-radius: 3px;
+}
+
+.lzm-img-face {
+    margin-top: 4px;
+    height: 32px;
+    width: 32px;
+}
+/*头像置灰*/
+.lzm-img-face-novalid {
+    border: dotted 1px red;
+    padding: 2px;
+    opacity: 0.4;
+}
+
+.lzm-img-face-name {
+    margin-top: 8px;
+    padding-left: 3px;
+    width: 120px;
+}
+
+/*#region 文字处理 - 省略 */
+/*单行省略*/
+.lzm-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*多行省略*/
+.lzm-multiline-ellipsis {
+    display: -webkit-inline-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+}
+/*两行*/
+.lzm-multiline-ellipsis-two {
+    -webkit-line-clamp: 2;
+}
+/*三行*/
+.lzm-multiline-ellipsis-three {
+    -webkit-line-clamp: 3;
+}
+/*#endregion */
+
+
+/*浮动 - left*/
+.lzm-float-left {
+    float: left;
+}
+/*浮动 - left*/
+.lzm-float-right {
+    float: right;
+}
+
+.lzm-float-clear {
+    clear: both;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.lzm-row-half {
+    width: 50%;
+}
+
+.lzm-row-full {
+    width: 100%;
+}
+
+.lzm-padding-zero {
+    padding: 0px;
+}
+
+.lzm-margin-zero {
+    margin: 0px;
+}
+
+.lzm-text-align-center {
+    text-align: center;
+}
+
+.lzm-text-align-left {
+    text-align: left;
+}
+
+.lzm-text-align-right {
+    text-align: right;
+}
+
+.lzm-default-value {
+    color: #A9A9A9;
+}
+
+/*附件图表 - 修饰*/
+.lzm-icon-attachment {
+    -moz-transform: scale(-1,1.2) rotate(-45deg);
+    -o-transform: scale(-1,1.2) rotate(-45deg);
+    -webkit-transform: scale(-1,1.2) rotate(-45deg);
+    transform: scale(-1,1.2) rotate(-45deg);
+    margin-left: -6px;
+    margin-right: 5px;
+}
+
+/*模拟 - placeholder提示 - span*/
+.placeholder-span {
+    float: right;
+    margin-right: 20px;
+    color: #A9A9A9;
+}
+
+.lzm-icon {
+    margin-right: 5px;
+    height: 15px;
+    width: 15px;
+    margin-bottom: -2px;
+}
+/*#region 列表颜色 */
+.lzm-color-red {
+    color: red;
+}
+
+.lzm-icon-item {
+    padding-left: 30px;
+}
+
+.lzm-color-green {
+    color: green;
+}
+
+.lzm-color-purple {
+    color: purple;
+}
+/*#endregion */
+
+/*#region 任务图标 */
+/*未发布的*/
+.lzm-icon-unpublish {
+    content: url('../Images/dropdown_task_unpublish@2x.png');
+}
+/*我参与的*/
+.lzm-icon-part {
+    content: url('../Images/dropdown_task_part@2x.png');
+}
+/*我负责的*/
+.lzm-icon-responsible {
+    content: url('../Images/dropdown_task_responsible@2x.png');
+}
+/*星标的*/
+.lzm-icon-star {
+    content: url('../Images/dropdown_task_star@2x.png');
+}
+/*我托付的*/
+.lzm-icon-transmit {
+    content: url('../Images/dropdown_task_transmit@2x.png');
+}
+/*完成的*/
+.lzm-icon-finished {
+    content: url('../Images/dropdown_state_on@2x.png');
+}
+/*废弃的*/
+.lzm-icon-obsoleting {
+    content: url('../Images/dropdown_task_watch@2x.png');
+}
+
+
+
+/*#endregion */
+
+/*#region 详细页面 - 页签 */
+.lzm-button-box {
+    margin-top: 25px;
+}
+
+.personnel-title-bar {
+}
+
+    .personnel-title-bar label {
+        /*width: 320px;
+        padding: 12px 15px;*/
+    }
+
+.personnel-bar {
+    height: 35px;
+    line-height: 35px;
+    padding-left: 40px;
+    overflow: hidden;
+}
+
+.personnel-content {
+    overflow: hidden;
+    margin-right: 105px;
+    height: 35px;
+    line-height: 35px;
+}
+
+.lzm-form-item-content .personnel-content-notalk {
+    margin-right: 60px;
+    padding-top: 1px;
+}
+
+.lzm-form-item-content .personnel-tool {
+    margin-top: -31px;
+    margin-right: 40px;
+}
+
+.personnel-content-notalk {
+    overflow: hidden;
+    margin-right: 40px;
+    height: 38px;
+    line-height: 38px;
+}
+
+    .personnel-content .personnel-face-item, .personnel-content-notalk .personnel-face-item {
+        margin-right: 5px;
+        margin-top: 2px;
+    }
+
+.personnel-face-item {
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.personnel-miter-king {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: url("/BasePlus/InformationRegistModel/Mobile/Images/Face/sign_admin@2x.png") no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+
+.personnel-icon-message {
+    content: url('/BasePlus/MISPTModule/Mobile/Images/list_btn_message@2x.png');
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    z-index: 1;
+}
+
+.personnel-tool {
+    margin-top: -38px;
+    margin-right: 20px;
+    font-size: 14px;
+    position: relative;
+}
+
+.personnel-num {
+    font-style: normal;
+    margin-right: 38px;
+}
+
+.personnel-num-notalk {
+    font-style: normal;
+}
+
+.personnel-num:after {
+    content: ")";
+}
+
+.personnel-num:before {
+    content: "(";
+}
+
+.personnel-num-notalk:after, .personnel-num:after {
+    content: ")";
+}
+
+.personnel-num-notalk:before, .personnel-num:before {
+    content: "(";
+}
+
+.personnel-bar-box {
+    padding: 3px 15px;
+}
+
+
+.detail-content {
+    padding-bottom: 10px;
+}
+
+
+.lzm-form-group .personnel-bar-box, .personnel-bar-box {
+    padding: 4px 15px;
+}
+
+
+/*#endregion */
+
+/*#region 表单左侧图标 */
+.lzm-icon-user-list {
+    content: url('../Images/list_user@2x.png');
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.lzm-icon-clip {
+    content: url('../Images/clip@2x.png');
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.lzm-icon-user-list-group {
+    content: url('/BasePlus/MISPTModule/Mobile/Images/list_user_group@2x.png');
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    z-index: 1;
+}
+/*#endregion */
+
+/*#endregion */
+
+/*#region ==========  菜单 ========== */
+/*菜单上部-banner容器*/
+.menu-banner-div {
+    margin: 0 auto;
+    overflow: hidden;
+}
+/*菜单上部-banner*/
+.menu-banner-img {
+    width: 100%;
+}
+/*菜单*/
+.menu-view.grid {
+    margin-top: -5px;
+    background-color: #fff;
+}
+
+.menu-icon {
+    /*height: 41px;*/
+}
+/*菜单名称*/
+.menu-title {
+}
+
+.lzm-menu-logo {
+    width: 40px;
+    height: 40px;
+}
+/*#endregion */
+
+/*#region ========== 表单 ========== */
+/*表单 - form*/
+.lzm-form {
+    background-color: #efeff4;
+}
+/*表单 - 控件 - 分组*/
+.lzm-form-group, .lzm-form-group:last-child {
+    position: relative;
+    background-color: #FFF;
+    margin-top: 5px;
+}
+
+    .lzm-form-group .mui-table-view-cell.mui-active {
+        background-color: #eee;
+    }
+
+.lzm-form-item-title {
+}
+
+    .lzm-form-item-title label {
+        padding: 12px 15px;
+        width: 90px;
+    }
+
+.lzm-form-item-content {
+    padding-left: 100px;
+    font-size: 15px;
+    margin: 1px 0;
+}
+
+    .lzm-form-item-content input, .lzm-form-item-content select, .lzm-form-item-content textarea {
+        margin-bottom: 0;
+        padding-left: 0;
+        border: 0;
+    }
+/*表单 - 控件 - 分组 - 边框*/
+.lzm-form-group:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+
+.lzm-form-group:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+    /*background-color: red;*/
+}
+/*覆盖样式*/
+.mui-input-group .mui-input-row {
+    height: unset;
+    height: initial;
+}
+    /*覆盖样式*/
+    .lzm-form .lzm-form-group:after, .mui-input-group .mui-input-row:after {
+        left: 0px;
+    }
+
+.principal-personnel-portrait {
+    line-height: 32px;
+    max-width: 32px;
+    height: 32px;
+}
+
+.createuser-face {
+    margin-top: 2px;
+}
+/*负责人*/
+.principal-personnel-name {
+    margin-left: 5px;
+    width: 120px;
+    font-size: 13px;
+}
+
+.placeholder-right-span {
+    color: #A9A9A9;
+    width: 180px;
+    font-size: 15px;
+}
+
+.mui-btn-block {
+    padding: 8px 0;
+}
+
+
+/*#endregion */
+
+/*#region ========== 列表 ========== */
+/*页 - 内容*/
+.mui-control-content {
+    /*height: 100%;*/
+    background-color: white;
+}
+    /*切换 - loading*/
+    .mui-control-content .mui-loading {
+        margin-top: 50px;
+    }
+/*列表 - 选项卡 （搜索框位置）*/
+.page-list .mui-fullscreen .mui-segmented-control ~ .mui-slider-group {
+    top: 84px;
+}
+/*内容 - 边界线*/
+.mui-slider-group .mui-slider-item {
+    border: unset !important;
+}
+/* - 整行 - item*/
+.lzm-full-item {
+    padding-right: 40px !important;
+}
+
+/*  - 半行- item*/
+.lzm-half-item {
+    padding-right: 160px !important;
+}
+/*审图情况汇总 - item - 状态 */
+.summary-audit-state {
+    padding: inherit;
+    width: 60px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.searchBar ~ .mui-content #scroll-content {
+    top: 44px;
+}
+
+.searchBar ~ .mui-content #scroll-vertical-center {
+    top: 44px;
+    bottom: 50px;
+}
+
+.lzm-list-position {
+    top: 44px;
+}
+/*#region =====    搜索    ===== */
+/*搜索控件*/
+.lzm-query-control {
+    margin: 5px 10px;
+}
+
+/*搜索框 - 位置*/
+.lzm-search {
+    margin-right: 0px;
+}
+
+/*搜索 - input*/
+input[type='search'] {
+    margin: 0px;
+    background-color: #FFF;
+}
+/*搜索 - icon*/
+.mui-search:before {
+    margin-top: -10px;
+}
+/*#endregion */
+
+/*#region ===== 下拉菜单 ===== */
+
+/*下拉切换任务类型按钮*/
+.lzm-popover-btn {
+    font-size: 15px;
+    float: right;
+    display: inline-block;
+    height: 34px;
+    line-height: 34px;
+    color: #515151;
+    margin-left: 10px;
+}
+
+/*下拉切换任务类型按钮 - icon*/
+.lzm-icon-arrowdown:before {
+    float: right;
+    content: '\e581';
+    font-family: Muiicons;
+}
+
+/*#region 下拉菜单 - 内容区域 */
+.mui-popover {
+    width: 110px;
+    height: 170px;
+}
+
+.popover-item {
+    padding: 8px 15px;
+}
+
+    .popover-item > a {
+        font-size: 15px;
+    }
+/*#endregion */
+
+/*#endregion */
+
+/*#region 无数据提醒*/
+.mui-scroll-wrapper {
+    background-color: transparent;
+}
+
+.no-item-himt {
+    position: absolute;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -moz-box-pack: center; /*Firefox*/
+    -webkit-box-pack: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    z-index: -1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 0;
+}
+
+.no-item-himt-bgimg {
+    width: 78px;
+    height: 70px;
+    background-image: url('../../Common/Images/noContImg.png');
+}
+
+.no-item-himt-title {
+    padding-top: 20px;
+}
+
+.hide-himt {
+    display: none;
+}
+/*#endregion*/
+
+/*#endregion */

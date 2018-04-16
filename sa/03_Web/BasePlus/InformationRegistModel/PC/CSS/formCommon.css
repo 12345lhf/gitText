@@ -1,0 +1,263 @@
+﻿.addformwrap {
+    width:110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*.formredio {
+    padding-top:7px;
+
+}*/
+.formradioleft {
+    padding-left: 8px;
+}
+.detailtimespan {
+    padding-top:7px;
+}
+/*事件的相关样式*/
+.select-time .time_div {
+    border: 1px solid #bbb;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 2px;
+}
+.time_div1 {
+    border: 1px solid #bbb;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 2px;
+}
+.time_div_span {
+    float: left;
+    padding-left: 10px;
+    height: 33px;
+}
+
+.time_div_img {
+    float: right;
+    height: 33px;
+    width: 33px;
+    font-size: 22px;
+    line-height: 33px;
+    cursor: pointer;
+}
+
+.time_div_detail {
+    /*border-radius: 0 !important;*/
+    width: 100%;
+    height: 33px;
+}
+
+.detail_time_div {
+    height: 34px;
+    line-height: 34px;
+}
+
+.coverfile-img {
+    margin-left: 15px;
+    margin-top: 5px;
+    height: 150px;
+    width: 220px;
+}
+
+
+.inspection-detail .mispt-upload-div {
+    height: 229px;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    margin-top: 10px;
+    margin-left: -3px;
+}
+
+
+/*sl 2016-11-16 add 新增页面的样式 begin*/
+
+.select-time .time_div {
+    border: 1px solid #fff;
+    line-height: 31px;
+
+}
+
+   .select-time .time_div:hover {
+        border: 1px solid #bbb;
+        line-height: 31px;
+    }
+
+.time_div_span {
+    float: left;
+    padding-left: 12px;
+    height: 33px;
+}
+
+.add-input-style {
+    margin-top: 7px;
+}
+
+.time_div_img {
+    float: right;
+    height: 33px;
+    width: 33px;
+    font-size: 22px;
+    line-height: 33px;
+    cursor: pointer;
+}
+time_div .icon-calendar {
+    visibility: hidden;
+}
+time_div:hover .icon-calendar {
+    visibility: visible;
+}
+
+.detail_time {
+    padding-left: 12px;
+}
+
+.time_div_detail {
+    border-radius: 2px;
+    width: 100%;
+    height: 33px;
+    padding-right: 0 !important;
+}
+
+.detail_time_div {
+    height: 35px;
+    line-height: 35px;
+}
+
+.mispt-time-readonly {
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 15px;
+}
+
+.time_div .icon-calendar {
+    visibility: hidden;
+}
+
+.time_div:hover .icon-calendar {
+    visibility: visible;
+}
+
+.mispt-time-readonly .time_div {
+    border: none;
+    margin-bottom: 10px;
+}
+
+    .mispt-time-readonly .time_div > span {
+        padding-left: 10px;
+    }
+
+    .mispt-time-readonly .time_div .time_div_img {
+        display: none;
+    }
+
+/*---------------------------------------------基本信息页面中的CSS样式 end---------------------------------- */
+.allow-emputy-control input {
+    border: 1px solid #fff;
+}
+
+    .allow-emputy-control input:hover {
+        border: 1px solid #bbb;
+    }
+
+    .allow-emputy-control input:focus {
+        border: 1px solid #3292ea;
+    }
+    
+.mispt-detail .mispt-upload-div {
+    height: 229px;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    margin-top: 10px;
+    margin-left: -3px;
+}
+
+.coopheight {
+    height:34px;
+}
+.detailtimespan {
+    color: #999999;
+}
+.has-errortime {
+    border-color: #a94442;
+}
+/*人员头像和名称的间距小*/
+.facenamespan {
+    padding-left: 5px;
+}
+.auto-textearinput-class {
+  width:100%;
+}
+
+.mistpt-textarea {
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+    height: 100%;
+    width: 100%;
+    transition: none !important;
+}
+
+    .mistpt-textarea[readonly] {
+        outline: none;
+        resize: none;
+        border-color: #fff;
+        width: 100%;
+    }
+
+.mistpt-textarea-parent-hide {
+    position: absolute;
+    width: 100%;
+    visibility: hidden;
+    margin-top: -5000px;
+}
+/*下拉框边框样式*/
+.dropDropadd {
+    border: 1px solid #bbb;
+    border-radius: 2px;
+}
+
+/*省略号样式*/
+.ellipsis {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mispt .photo-item > .del-div {
+    top: -102px;
+    left: 108px;
+}
+.progresstext {
+     width: 100%;
+    position: absolute;
+    left: 45%;
+    color: black;
+    text-align: left;
+}
+.radioback {
+    height: 34px!important;
+    background-color: #a2e759;
+    border-radius: 7.5px;
+        margin-right: 35px;
+}
+.radioimg {
+    margin-left: 10px;
+    margin-bottom: 3px;
+    /*background-image:url(/BasePlus/InformationRegistModel/PC/Images/vioce.png);*/
+}
+.radioimggif {
+    margin-left: 10px;
+    margin-bottom: 3px;
+    /*background-image:url(/BasePlus/InformationRegistModel/PC/Images/voicegif.gif);*/
+}
+.radiodiv {
+min-width:100px;
+max-width:100%
+}
+.audiotext {
+font-size:16px;
+color:#afadb8;
+    margin-top: 7px;
+}
+  

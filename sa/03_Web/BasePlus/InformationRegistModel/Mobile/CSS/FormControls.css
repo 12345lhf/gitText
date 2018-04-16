@@ -1,0 +1,77 @@
+﻿@charset "utf-8";
+/*********************************************************
+ * 创建者：lz-zyf
+ * 创建日期：2017-03-01 14:18:48
+ * 描述：表单控件（内置）样式
+ * 维护：
+ * *******************************************************/
+.irm-hidden {
+    display: none;
+}
+
+.irm-block {
+    display: block;
+}
+
+.irm-inline {
+    display: inline-block;
+}
+
+
+.lzm-img-face-name {
+    margin-top: 10px;
+    padding-left: 3px;
+    width: 120px;
+}
+
+.controls {
+    height: 40px;
+    line-height: 40px;
+}
+
+.mui-pciker-list li {
+    padding: 0 30px;
+}
+
+
+
+/*#region 录音 */
+.recording-void {
+    float: right;
+    margin-right: 10px;
+    margin-top: 7px;
+}
+
+.recording-progress-bar {
+    position: relative;
+    background-color: #a2e759;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 4px;
+    border-radius: 5px;
+    margin-right: 50px;
+    min-width: 50px;
+    max-width: 180px;
+}
+
+    .recording-progress-bar .audio {
+        color:#66a032;
+        font-size: 16px;
+        margin-left: 4px;
+    }
+
+    .recording-progress-bar .time {
+        position: absolute;
+        top: 5px;
+        left: 100%;
+        padding-left: 5px;
+        font-style: normal;
+        color: #9C9C9C;
+        font-size: small;
+    }
+
+        .recording-progress-bar .time:after {
+            content: "''";
+        }
+/*#endregion */

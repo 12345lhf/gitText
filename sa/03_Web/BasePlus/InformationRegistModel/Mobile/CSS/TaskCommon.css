@@ -1,0 +1,40 @@
+﻿@charset "utf-8";
+/*********************************************************
+ * 创建者：lz-zyf
+ * 创建日期：2017-03-01 14:18:48
+ * 描述：协作模型【通用】样式
+ * 维护：
+ * *******************************************************/
+
+.lzm-float-left {
+    float: left;
+}
+
+.lzm-img-circle {
+    border-radius: 3px;
+}
+
+.lzm-img-face {
+    margin-top: 4px;
+    height: 32px;
+    width: 32px;
+}
+
+.lzm-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.lzm-form-item-content {
+    padding-left: 100px;
+    font-size: 14px;
+    margin: 1px 0;
+}
+
+/*#region 无数据 */
+.no-item-himt {
+}
+
+
+/*#endregion */

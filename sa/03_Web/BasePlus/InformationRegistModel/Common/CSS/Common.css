@@ -1,0 +1,668 @@
+﻿/*#region ====================通用遮罩 begin====================*/
+/*#region 附件样式 */
+.mispt-detail .mistpt-textarea {
+    border-color: #fff;
+    margin-left: 12px;
+}
+
+    .mispt-detail .mistpt-textarea:hover {
+        border-color: #bbb;
+    }
+
+    .mispt-detail .mistpt-textarea:focus {
+        border-color: #3292ea;
+    }
+
+    .mispt-detail .mistpt-textarea[readonly]:hover,
+    .mispt-detail .mistpt-textarea[readonly]:focus {
+        border-color: #fff;
+    }
+.misptUploadContainer {
+    height: 200px;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
+/*************文件列表***************/
+/*全屏样式*/
+.fullscreen-rc-list {
+    background: #f0f0f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-tree-grid {
+    height: 255px;
+    overflow: auto;
+}
+
+    .file-tree-grid dd, .file-tree-grid dl {
+        list-style: none;
+    }
+
+.file-tree-grid-row {
+    padding: 0;
+    margin: 0;
+    height: 44px;
+    vertical-align: top;
+    clear: both;
+}
+
+.file-tree-grid-cell {
+    padding: 0 0;
+    margin: 0;
+    vertical-align: middle;
+    display: table-cell;
+    white-space: nowrap;
+    height: 44px;
+    position: relative;
+}
+
+    .file-tree-grid-cell > * {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        margin-top: 6px;
+    }
+
+.file-tree-head {
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 44px;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+.file-tree-td {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+    .file-tree-td .iconSwitch {
+        width: 10px;
+        display: inline-block;
+        background: none;
+        cursor: pointer;
+        color: #999;
+        font-size: 16px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .file-tree-td .blank {
+        width: 15px;
+        display: inline-block;
+        background: none;
+        margin-left: -15px;
+    }
+
+    .file-tree-td .form-inline {
+        margin-top: 3px;
+        display: inline-block;
+    }
+
+    .file-tree-td .control {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        margin-top: 1px;
+    }
+
+        .file-tree-td .control .btn {
+            padding: 3px 6px;
+        }
+
+    .file-tree-td .spantit {
+        max-width: 50%;
+        cursor: pointer;
+    }
+
+.file-tree-grid-load-row {
+    line-height: 44px;
+    height: 44px;
+}
+/***列滑过，选中*******/
+.file-tree-grid-row.hover {
+    background: #fafafa;
+}
+
+.file-tree-grid-row.active {
+    background: #fafafa;
+}
+
+/*#endregion */
+
+
+/*#region 参与人样式 */
+
+.list-no-left-margin {
+    margin-left: 0;
+}
+
+.member-ul-height {
+    height: 80px;
+}
+
+/*#endregion */
+
+/*#region 负责人 样式 */
+
+.principalUserName {
+    height: 46px;
+}
+
+/*#endregion */
+
+.mispt-form-radio-inline {
+    margin-left: 0 !important;
+    margin-right: 20px;
+}
+
+.mispt-detail .mispt-detail-form .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.mispt-detail .mispt-detail-form .detail-radio-inline {
+    padding-top: 0 !important;
+    margin-left: 24px;
+}
+
+    .mispt-detail .mispt-detail-form .detail-radio-inline input[type="radio"] {
+        width: auto !important;
+        padding-top: 0 !important;
+    }
+
+
+.mispt-readonly .fd-padding-left12 span:first-child {
+    padding-left: 12px;
+}
+/*.mispt-readonly span span {
+    height:100%;
+    line-height:100%;
+}
+.mispt-readonly .fd-h80 {
+    height: 100%;
+    line-height:100%;
+}*/
+
+.mispt-loading-shade {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 3999 !important;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.34);
+}
+
+.mispt-shade-show {
+    display: flex !important;
+}
+
+@-webkit-keyframes scale {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    45% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.7;
+    }
+
+    80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scale {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    45% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.7;
+    }
+
+    80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.ball-pulse > div:nth-child(0) {
+    -webkit-animation: scale 0.75s 0s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div:nth-child(1) {
+    -webkit-animation: scale 0.75s 0.12s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0.12s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div:nth-child(2) {
+    -webkit-animation: scale 0.75s 0.24s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0.24s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div:nth-child(3) {
+    -webkit-animation: scale 0.75s 0.36s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0.36s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div {
+    background-color: #29a3fe; /*329f18*/
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+}
+/*#endregion*/
+
+input[type="search"], input[type="text"], input[type="url"], input[type="email"], input[type="password"], textarea, select, .form-control {
+    border: 1px solid #bbb;
+}
+
+/*#region 下拉指令样式*/
+.mistpt-ddl > button {
+    width: 100%;
+    text-align: left;
+}
+
+    .mistpt-ddl > button > .text-span {
+        display: inline-block;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap;
+        width:100%;
+    }
+
+.mistpt-ddl > ul {
+    width: 100%;
+    background:#fff;
+}
+
+    .mistpt-ddl > ul > li a {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+.mistpt-ddl > button .icon {
+    float: right;
+    display: inline;
+}
+
+.mistpt-ddl.mistpt-ddl > button,
+.mistpt-ddl.mistpt-ddl > button:hover {
+    border-color: #bbb;
+}
+
+.mistpt-ddl > button .icon > span {
+    display: inline-block;
+}
+/*自动隐藏样式*/
+.mistpt-ddl.mistpt-ddl-hover > button {
+    border-color: #fff;
+}
+
+    .mistpt-ddl.mistpt-ddl-hover > button:hover {
+        border-color: #bbb;
+    }
+
+    .mistpt-ddl.mistpt-ddl-hover > button .icon > span {
+        display: inline-block;
+        visibility: hidden;
+    }
+
+    .mistpt-ddl.mistpt-ddl-hover > button:active .icon > span,
+    .mistpt-ddl.mistpt-ddl-hover > button:focus .icon > span,
+    .mistpt-ddl.mistpt-ddl-hover > button:hover .icon > span {
+        visibility: visible;
+    }
+
+.pd-left-12 {
+    padding-left: 12px;
+}
+
+/*#endregion 下拉指令样式*/
+
+
+/*#region =================== 通用  ===================*/
+.mispt-padding-zero {
+    padding: 0;
+}
+/*#endregion */
+
+/*#region =================== 详情页面  ===================*/
+
+
+.mispt .mispt-detail {
+}
+
+.mispt .mispt-detail-form {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+    .mispt .mispt-detail-form .mispt-form-control-box input {
+        height: 33px;
+    }
+
+    .mispt .mispt-detail-form .form-group {
+        margin-bottom: 0;
+        line-height: 34px;
+    }
+
+    .mispt .mispt-detail-form .autotextarea-textarea-span,
+    .mispt .mispt-detail-form .autotextarea-textarea {
+        line-height: 24px;
+        padding-top: 4px !important;
+    }
+
+.mispt-form-control-box {
+    padding-left: 0;
+    padding-top: 0;
+    margin-top: 7px;
+    margin-right: 15px;
+    min-height: 34px;
+}
+    /*.mispt-form-control-box .mistpt-ddl{
+        padding-left:12px;
+    }
+    .mispt-form-control-box .mistpt-ddl>.dropdown-menu {
+        margin-left:12px;
+    }*/
+
+    /*将内容或者备注设置固定高度*/
+    .mispt-form-control-box input {
+        width: 100%;
+        padding-top: 7px;
+    }
+
+    .mispt-form-control-box span {
+        display: block;
+        height: 100%;
+    }
+
+    .mispt-form-control-box > span {
+        padding-left: 12px;
+    }
+
+        .mispt-form-control-box > span.auto-textearinput-class,
+        .auto-textearinput-class {
+            display:inline-flex;
+            padding-left: 0;
+            /*padding-right: 12px;*/
+        }
+            .auto-textearinput-class textarea {
+                padding:5px 12px;
+            }
+
+.mistpt-padding-left12 {
+    padding-left: 12px;
+}
+
+.mispt-write span {
+    padding-left: 12px;
+}
+
+
+    .mispt-write span span {
+        border: 1px solid #fff;
+        height: 34px;
+        line-height: 34px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+        .mispt-write span span:hover {
+            border: 1px solid #bbb;
+            border-radius: 1px;
+        }
+/*只读下的样式*/
+.mispt-readonly span span {
+    /*height: 34px;
+    line-height: 34px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+}
+
+.mispt-readonly > span > span {
+    padding-left: 12px;
+    overflow-y: auto;
+}
+
+    .mispt-readonly > span > span > span {
+        word-break: break-word;
+    }
+/*多行文本框样式*/
+/*.mispt-detail-form-textarea .mispt-form-control-box {
+    height: 80px;
+}*/
+
+/*.mispt-detail-form-textarea .mispt-form-control-box.mispt-readonly {
+        height: 100%;
+    }*/
+/*专为任务详情页添加的样式 begin*/
+/*将内容或者备注设置固定高度*/
+.mispt-form-control-box span.readonly-span {
+    padding-left: 24px;
+}
+
+/* #region DropDownList */
+/*自动出省略号*/
+.mispt-detail .text-omit {
+    display: block !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mispt-detail .mistpt-ddl.mistpt-ddl-hover > button {
+    padding-top:4px;
+}
+/* #endregion */
+
+
+/*专为任务详情页添加的样式 end*/
+/*#endregion */
+
+/*#region ====================通用遮罩 begin====================*/
+
+.mispt-loading-shade {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 3999 !important;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.34);
+}
+
+.mispt-shade-show {
+    display: flex !important;
+}
+
+@-webkit-keyframes scale {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    45% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.7;
+    }
+
+    80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scale {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    45% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.7;
+    }
+
+    80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.ball-pulse > div:nth-child(0) {
+    -webkit-animation: scale 0.75s 0s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div:nth-child(1) {
+    -webkit-animation: scale 0.75s 0.12s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0.12s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div:nth-child(2) {
+    -webkit-animation: scale 0.75s 0.24s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0.24s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div:nth-child(3) {
+    -webkit-animation: scale 0.75s 0.36s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale 0.75s 0.36s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.ball-pulse > div {
+    background-color: #29a3fe; /*329f18*/
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+}
+/*#endregion*/
+
+/*修改底层平台聊天z轴高度*/
+/*.layim-main-wrap {
+    z-index: 1037 !important;
+}*/
+.modal-backdrop {
+    z-index: 1028 !important;
+}
+
+/*覆盖底层autoInput指令样式，默认不显示Input边框 begin*/
+.auto-input-no-border > input {
+    border-color: #fff;
+}
+
+
+    .auto-input-no-border > input:visited,
+    .auto-input-no-border > input:active,
+    .auto-input-no-border > input:hover {
+        border-color: #bbb;
+    }
+
+    .auto-input-no-border > input:focus {
+        border-color: #3292ea;
+    }
+/*覆盖底层autoInput指令样式，默认不显示Input边框 end*/
+
+
+
+/*#region 多行文本框指令样式 being*/
+/*.mispt-textarea-read .auto-textearinput-class {
+}
+    .mispt-form-control-box textarea{
+        width: 100%;
+        padding-top: 7px;
+    }
+    .mispt-textarea-read .auto-textearinput-class > span {
+        height: 100%;
+    }
+
+        .mispt-textarea-read .auto-textearinput-class > span textarea:focus {
+            border: 1px solid #3292ea !important;
+        }
+
+        .mispt-textarea-read .auto-textearinput-class > span > span {
+            padding: 0 12px !important;
+            border: 1px solid #fff;
+            word-break: normal;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+    .mispt-textarea-read .auto-textearinput-class textarea {
+        border: 1px solid #fff;
+        padding-top: 0;
+    }
+
+        .mispt-textarea-read .auto-textearinput-class textarea:hover {
+            border: 1px solid #bbb;
+        }
+
+    .mispt-textarea-read .auto-textearinput-class > span > span:hover {
+        border: 1px solid #bbb;
+        border-radius: 2px;
+    }
+
+    .mispt-textarea-read .auto-textearinput-class > span > textarea {
+        width: 100%;
+        height: 100%;
+    }*/
+
+/*.mispt-detail .mistpt-textarea[readonly] {
+    padding: 0 10px;
+}*/
+
+
+/*#endregion 多行文本框指令样式 end*/
+/*上传组件 - 容器*/
+.mispt .mispt-upload-container {
+    /*height: 200px;*/
+    padding: 0;
+    /*border: 1px solid rgba(0,0,0,0.1);*/
+    border: 1px solid #bbb;
+    border-radius: 2px;
+}
+
+.mispt .add-file-height {
+    height: 228px;
+}

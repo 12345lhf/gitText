@@ -1,0 +1,22 @@
+﻿<link mispt-href="/BasePlus/InformationRegistModelDesign/PC/CSS/ModelClass.css" rel="stylesheet" />
+<div class="irm-class-list" ng-controller="InformationRegistModelClassListController">
+    <div class="irm-class-left">
+        <div class="irm-class-top">
+            <span class="irm-class-description">分类</span>
+            <span class="irm-class-add" ng-click="UIMethod.addClass()"></span>
+        </div>
+        <div class="irm-class-items">
+            <ul>
+                <li ng-repeat="item in UIData.allClass" ng-class="{true:'active',false:''}[item.id==UIData.activeItem.id]" class="irm-class-item" ng-click="UIMethod.itemClick(item,$event)" title="{{item.name}}">
+                    <span class="irm-class-item-point"></span>
+                    <span class="irm-class-item-name">{{item.name}}</span>
+                    <span class="irm-class-item-update" ng-click="UIMethod.rename(item,$index,$event)"></span>
+                    <span class="irm-class-item-delete" ng-click="UIMethod.delClass(item,$index,$event)"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="irm-class-main">
+        <ui-view style="width:100%;height:100%;"></ui-view>
+    </div>
+</div>

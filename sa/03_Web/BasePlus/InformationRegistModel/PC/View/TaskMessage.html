@@ -1,0 +1,48 @@
+﻿<!--成员邀请接受界面-->
+<div ng-controller="LZCTMtaskMessageController" class="lz-page-container lz-page-scroll">
+    <link mispt-href="/BasePlus/MISPTModule/Common/CSS/Common.css" rel="stylesheet" />
+
+    <script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Controls.js"></script>
+
+
+    <div class="lz-page-header">
+        <button type="button" class="close" ng-click="closeDivDialog()">&times;</button>
+        <h3 class="lz-page-title text-center" ng-bind="maintitle"></h3>
+    </div>
+    <!--        只读模式：只在接受邀请的时候才出现-->
+    <!--                邀请信息-->
+    <div class="lz-page-body padding-lr" ng-if="true">
+        <form class="form-horizontal padding-lr">
+            <!--                邀请人-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请人：</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="UserName" />
+                </div>
+            </div>
+               <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">任务名称：</label>
+                <div class="col-xs-9"style="padding-right:80px">
+                    <p class="form-input-txt" ng-bind="Title" />
+                </div>
+            </div>
+            
+               <!--                邀请人-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请时间：</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="date|date:'yyyy-MM-dd'" />
+                </div>
+            </div>
+                         <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">参与身份：</label>
+                <div class="col-xs-9"style="padding-right:80px">
+                    <p class="form-input-txt" ng-bind="orgname" />
+                </div>
+            </div>
+        </form>
+        <h3 style="width:100%;text-align:center;padding-top:10px"></h3>
+    </div>
+</div>

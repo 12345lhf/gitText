@@ -1,0 +1,11 @@
+﻿<!--需要的CSS-->
+<link mispt-href="/BasePlus/InformationRegistModel/PC/CSS/UseField.css" rel="stylesheet" />
+<!--主要页面-->
+<div ng-controller="InformationRegistModel_UserField_List" class="mispt-userfieldlist">
+    <!--左侧的导航区域-->
+    <div class="mispt-ufl-listgroup">
+        <div class="mispt-ufl-listitem" ng-repeat="module in appModuleManager.showMoudules" data-toggle="tooltip" data-placement="right" title="{{module.name}}" ng-bind="module.name" ng-click="goConfigurationPage(module)" ng-class="{true:'listactive'}[selectedId == module.modid]"></div>
+    </div>
+    <!--右侧的路由展示区域-->
+    <div class="mispt-ufl-view" style="height:100%" ui-view></div>
+</div>

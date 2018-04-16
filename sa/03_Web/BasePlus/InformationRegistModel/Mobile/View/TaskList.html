@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link href="../../../../../Components/Mobile/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="../CSS/TaskCommon.css" rel="stylesheet" />
+    <link href="../CSS/TaskList.css" rel="stylesheet" />
+    <link href="/BasePlus/MISPTModule/Mobile/CSS/Common.css" rel="stylesheet" />
+</head>
+<body>
+    <form action="">
+        <!--搜索，菜单-->
+        <div class="mui-content-padded lzm-query-control">
+            <!--下拉菜单-->
+            <a href="#topPopover" id="popoverBtn" class="lzm-popover-btn lzm-icon-arrowdown">我参与的</a>
+            <!--查询框-->
+            <div class="mui-input-row mui-search lzm-search">
+                <input type="search" id="search" class="mui-input-clear" placeholder="搜索">
+            </div>
+        </div>
+    </form>
+    <div class="mui-content page-list">
+        <!--页签 - 内容-->
+        <div id="scroll-content" class="mui-content mui-scroll-wrapper scroll-list lzm-list-position">
+            <div class="mui-scroll">
+                <div class="mui-loading">
+                    <div class="mui-spinner">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--无数据提醒-->
+        <div class="no-item-himt">
+            <div class="no-item-himt-bgimg"></div>
+            <p class="no-item-himt-title">无数据，下拉进行刷新</p>
+        </div>
+        <!--下拉菜单 -  内容-->
+        <div id="topPopover" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell popover-item popover-item popover-item">
+                            <a href="#" id="0"><span class="lzm-icon lzm-icon-unpublish"></span>未发布的</a>
+                        </li>
+                        <li class="mui-table-view-cell popover-item popover-item">
+                            <a href="#" id="2"><span class="lzm-icon lzm-icon-part"></span>我参与的</a>
+                        </li>
+                        <li class="mui-table-view-cell popover-item popover-item">
+                            <a href="#" id="1"><span class="lzm-icon lzm-icon-responsible"></span>我负责的</a>
+                        </li>
+                        <li class="mui-table-view-cell popover-item popover-item">
+                            <a href="#" id="5"><span class="lzm-icon lzm-icon-finished"></span>完成的</a>
+                        </li>
+                        <li class="mui-table-view-cell popover-item popover-item">
+                            <a href="#" id="4"><span class="lzm-icon lzm-icon-obsoleting"></span>废弃的</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/requirejs/require.js"></script>
+    <script src="../../../../../Components/Mobile/mui/js/mui.js"></script>
+    <script src="../../../../../Base/Mobile/JS/LeadingCloud.js"></script>
+    <script src="../../../../../../Base/Mobile/JS/LzFileSDK.js"></script>
+    <script src="../../Common/JS/IRM_Common.js"></script>
+    <script src="../JS/TaskManager.js"></script>
+    <script src="../JS/TaskList.js"></script>
+</body>
+</html>

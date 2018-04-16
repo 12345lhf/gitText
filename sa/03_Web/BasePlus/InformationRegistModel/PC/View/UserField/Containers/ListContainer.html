@@ -1,0 +1,430 @@
+﻿<script src="/BasePlus/InformationRegistModel/Common/JS/IRM_Common.js"></script>
+<script src="/BasePlus/InformationRegistModel/PC/JS/FormControl/IRM_Controls.js"></script>
+<!--样式提前-->
+<!--<link mispt-href="/BasePlus/InformationRegistModel/PC/CSS/UseField.css" rel="stylesheet" />-->
+<div ng-controller="InformationRegistModel_UserField_Container" class="mispt-ufl-mainContainer">
+    <!--上面的不可更改的内置属性-->
+
+    <div class="mispt-ufl-panel-heading" ng-class="{'panelheadingborder':!inlineattrActive}" ng-click="active.inlineattr()">
+        <div class="mispt-ufl-panel-heading-text">
+            内置属性
+        </div>
+        <div class="mispt-ufl-panel-heading-arrow" ng-class="{'activearrow':inlineattrActive}">
+
+        </div>
+    </div>
+    <!--内置属性的列表-->
+    <div class="mispt-ufl-inlineattr" ng-show="inlineattrActive">
+
+        <form name="fieldsForm" class="form-horizontal ctm-am-baseinfo-form" novalidate="novalidate">
+            <div class="mispt-ufl-form-body">
+                <div ng-model="oldModuleManager.newModule.formConfig.fields">
+                    <div class="mispt-ufl-field-item" ng-if="!fieldItem.isHidden" ng-repeat="fieldItem in oldModuleManager.newModule.formConfig.fields">
+                        <div class="mispt-ufl-field-forcenter">
+                            <div class="mispt-ufl-form-unit">
+                                <div class="mispt-ufl-form-label">属性名称：</div>
+                                <div class="mispt-ufl-form-control" ng-class="{true:'has-error'}[fieldItem.isNotAllow]">
+                                    <input type="text" class="mispt-ufl-form-control f14" name="fieldName" ng-model="fieldItem.fieldName" placeholder="必填" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="mispt-ufl-form-unit">
+                                <div class="mispt-ufl-form-label">属性类型：</div>
+                                <div class="mispt-ufl-form-control">
+                                    <select class="mispt-ufl-form-control" ng-model="fieldItem.controlType" ng-options="control.text for control in controlTypesList" disabled="disabled"></select>
+                                    <input type="hidden" id="{{'hidTempCode-'+fieldItem.fieldCode}}" value="{{fieldItem.controlType.code}}" />
+                                </div>
+                            </div>
+
+                            <div ng-include="fieldItem.controlType.tpl"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!--下面的用户自己定义的属性-->
+    <div class="mispt-ufl-panel-heading" ng-click="active.customerattr()">
+        <div class="mispt-ufl-panel-heading-text">
+            自定义属性
+        </div>
+        <div class="mispt-ufl-panel-heading-arrow-info" ng-class="{'activearrow-info':customerattrActive}">
+        </div>
+    </div>
+    <!--<form name="fieldsForm" class="mispt-ufl-customattr-form form-horizontal ctm-am-baseinfo-form" novalidate="novalidate">-->
+    <!--属性配置的列表-->
+    <div id="mispt-ufl-customattr" class="mispt-ufl-customattr" ng-show="customerattrActive">
+        <div class="mispt-ufl-form-body">
+            <div ui-sortable ng-model="newModelMananer.newModel.formConfig.fields">
+                <div class="mispt-ufl-field-item" ng-repeat="fieldItem in newModelMananer.newModel.formConfig.fields">
+                    <div class="mispt-ufl-form-unit">
+                        <div class="mispt-ufl-form-label">属性名称：</div>
+                        <div class="mispt-ufl-form-control">
+                            <input type="text" class="mispt-ufl-form-control f14" name="fieldName" ng-change="newModelMananer.formManager.fieldTextChanged(fieldItem)" ng-model="fieldItem.fieldName" placeholder="必填" required />
+                        </div>
+                    </div>
+                    <div class="mispt-ufl-form-unit">
+                        <div class="mispt-ufl-form-label">属性类型：</div>
+                        <div class="mispt-ufl-form-control">
+                            <select class="mispt-ufl-form-control" ng-model="fieldItem.controlType" ng-options="control.text for control in userControlTypesList" ng-change="newModelMananer.formManager.fieldTypeSelectChanged(fieldItem);" ng-disabled="fieldItem.isSelectDisable"></select>
+                            <input type="hidden" id="{{'hidTempCode-'+fieldItem.fieldCode}}" value="{{fieldItem.controlType.code}}" style="vertical-align: text-top;" />
+                        </div>
+                    </div>
+                    <div ng-include="fieldItem.controlType.tpl"></div>
+                    <div title="点击删除" class="mispt-ufl-form-del" ng-if="!fieldItem.isDefault" ng-click="newModelMananer.formManager.delField(fieldItem);">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--底部的按钮-->
+    <div class="mispt-ufl-footer">
+        <div class="btnAddField" ng-click="newModelMananer.formManager.addField();">
+            添加属性
+        </div>
+
+    </div>
+    <div class="mispt-ufl-footer-btns">
+        <button class="mispt-ufl-footer-btn mispt-ufl-footer-save" ng-class="{true:'mispt-ufl-footer-btn-disable'}[newModelMananer.canNotSave]" ng-disabled="newModelMananer.canNotSave" ng-click="newModelMananer.listManager.save()">
+            保存
+        </button>
+    </div>
+    <!--</form>-->
+</div>
+
+
+<!--自定时属性的配置模块-->
+<!--表单类型模板——单行输入框/多行输入框 -- 用户配置-->
+<script type="text/ng-template" id="field-item-textOrTextarea">
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">必填：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isRequired" style="margin-top:11px;cursor:default;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——下拉框/单选框集合 -- 用户配置-->
+<script type="text/ng-template" id="field-item-radiolistOrSelect">
+    <div class="mispt-ufl-form-unit" style="height:auto; align-items: baseline;">
+        <div class="mispt-ufl-form-label">选项：</div>
+        <div class="mispt-ufl-form-control" style="display:flex; flex-wrap: wrap;">
+            <label class="radio-inline" style="margin-left:0px; margin-right:10px; padding-bottom:7px;" ng-repeat="option in fieldItem.controlConfig.options">
+                <input type="radio" name="fieldItemType-RadiolistOrSelect-Init" ng-disabled="true" value="{{option}}">{{option}}
+            </label>
+            <!--<input type="text" class="form-control f14" ng-model="newModelMananer.formManager.radiolistOrSelectManager.initData" style="width: auto;" placeholder="请输入名称" required />-->
+            <input type="text" class="form-control f14" ng-model="fieldItem.tempClientView.radioOrSelect.text" style="width: auto;" placeholder="请输入名称" required />
+            <div class="mispt-ufl-btnAddFieldOption" ng-click="newModelMananer.formManager.radiolistOrSelectManager.add(fieldItem);">添加</div>
+            <div class="mispt-ufl-btnAddFieldOption" ng-click="newModelMananer.formManager.radiolistOrSelectManager.edit(fieldItem);">编辑</div>
+        </div>
+    </div>
+</script>
+<!--表单类型模板——日期 -- 用户配置-->
+<script type="text/ng-template" id="field-item-date">
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">日期类型：</div>
+        <div class="mispt-ufl-form-control">
+            <label class="radio-inline">
+                <input type="radio" name="{{fieldItem.fieldCode}}" ng-model="fieldItem.controlConfig.dateType" value="yyyy年MM月dd日"> 年-月-日
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="{{fieldItem.fieldCode}}" ng-model="fieldItem.controlConfig.dateType" value="yyyy年MM月dd日 HH时mm分"> 年-月-日 时:分
+            </label>
+        </div>
+    </div>
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">必填：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isRequired" style="margin-top:11px;cursor:default;" />
+        </div>
+    </div>
+</script>
+
+<!--信息登记模型的配置模块-->
+<!--表单类型模板——单行输入框-->
+<script type="text/ng-template" id="irm-control-config-text">
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">必填：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isRequired" disabled="disabled" style="margin-top:11px;cursor:default;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——多行输入框-->
+<script type="text/ng-template" id="irm-control-config-textarea">
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">必填：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isRequired" disabled="disabled" style="margin-top:11px;cursor:default;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——单选框集合-->
+<script type="text/ng-template" id="irm-control-config-radiolist">
+    <div class="mispt-ufl-form-unit" style="height:auto; align-items: baseline;">
+        <div class="mispt-ufl-form-label">选项：</div>
+        <div class="mispt-ufl-form-control" style="display:flex; flex-wrap: wrap; max-width:815px;">
+            <label class="radio-inline" style="margin-left:0px; margin-right:10px; padding-bottom:7px;" ng-repeat="option in fieldItem.controlConfig.options">
+                <input type="radio" ng-disabled="true" value="{{option}}">{{option}}
+            </label>
+            <!--<input type="text" class="form-control f14" style="width: auto;" placeholder="请输入名称" required />
+            <div class="btnAddFieldOption" ng-click="radiolist.add(fieldItem,$event);">添加</div>
+            <div class="btnAddFieldOption" ng-click="radiolist.edit(fieldItem);">编辑</div>-->
+        </div>
+    </div>
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">用户定制：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isCustomized" disabled="disabled" style="margin-top:11px;" />
+        </div>
+        <div style="color: #737373; margin-left:5px;">勾选后，支持用户在“模板管理”中维护选项。</div>
+    </div>
+</script>
+<!--表单类型模板——下拉框-->
+<script type="text/ng-template" id="irm-control-config-dropdownlist">
+    <div class="mispt-ufl-form-unit" style="height:auto; align-items: baseline;">
+        <div class="mispt-ufl-form-label">选项：</div>
+        <div class="mispt-ufl-form-control" style="display:flex; flex-wrap: wrap; max-width:815px;">
+            <label class="radio-inline" style="margin-left:0px; margin-right:10px; padding-bottom:7px;" ng-repeat="option in fieldItem.controlConfig.options">
+                <input type="radio" ng-disabled="true" value="{{option}}">{{option}}
+            </label>
+            <!--<input type="text" class="form-control f14" style="width: auto;" placeholder="请输入名称" required />
+            <div class="btnAddFieldOption" ng-click="dropdownlist.add(fieldItem,$event);">添加</div>
+            <div class="btnAddFieldOption" ng-click="dropdownlist.edit(fieldItem);">编辑</div>-->
+        </div>
+    </div>
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">用户定制：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isCustomized" disabled="disabled" style="margin-top:11px;" />
+        </div>
+        <div style="color: #737373; margin-left:5px;">勾选后，支持用户在“模板管理”中维护选项。</div>
+    </div>
+</script>
+<!--表单类型模板——日期-->
+<script type="text/ng-template" id="irm-control-config-date">
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">日期类型：</div>
+        <div class="mispt-ufl-form-control">
+            <label class="radio-inline">
+                <input type="radio" name="{{fieldItem.fieldCode}}" ng-model="fieldItem.controlConfig.dateType" disabled="disabled" value="yyyy年MM月dd日"> 年-月-日
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="{{fieldItem.fieldCode}}" ng-model="fieldItem.controlConfig.dateType" disabled="disabled" value="yyyy年MM月dd日 HH时mm分"> 年-月-日 时:分
+            </label>
+        </div>
+    </div>
+    <div class="mispt-ufl-form-unit">
+        <div class="mispt-ufl-form-label">必填：</div>
+        <div class="mispt-ufl-form-control">
+            <input type="checkbox" ng-model="fieldItem.controlConfig.isRequired" disabled="disabled" style="margin-top:11px;cursor:default;" />
+        </div>
+    </div>
+</script>
+<!--表单类型模板——文件指令-->
+<script type="text/ng-template" id="irm-control-config-filedirective">
+    <style>
+        .field-item-filedirective {
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+            .field-item-filedirective .label {
+                font-family: 'Microsoft YaHei';
+                font-size: 14px;
+                color: #76788d;
+                font-weight: normal;
+                width: 90px;
+                text-align: right;
+            }
+
+            .field-item-filedirective .control {
+                width: 815px;
+            }
+
+                .field-item-filedirective .control .toolbar > div:first-child {
+                    height: 32px;
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                    .field-item-filedirective .control .toolbar > div:first-child > span {
+                        cursor: pointer;
+                    }
+
+                .field-item-filedirective .control .toolbar > div.folder-item-root-add {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    border: 1px solid #ddd;
+                }
+
+            .field-item-filedirective .folder-item-operation {
+                width: 100%;
+            }
+
+                .field-item-filedirective .folder-item-operation > div {
+                    width: 100%;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    border: 1px solid #ddd;
+                }
+
+            .field-item-filedirective ul {
+                cursor: default;
+                margin-bottom: 0;
+            }
+
+                .field-item-filedirective ul > li {
+                    padding: 0;
+                    border-radius: 0 !important;
+                    border: none;
+                }
+
+                    .field-item-filedirective ul > li .folder-item {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        overflow: hidden;
+                        cursor: pointer;
+                    }
+
+                        .field-item-filedirective ul > li .folder-item > span:last-child {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                    .field-item-filedirective ul > li .operate-buttons {
+                        display: none;
+                        padding-top: 6px;
+                    }
+
+                .field-item-filedirective ul input[type="text"] {
+                    padding: 1px;
+                }
+
+            .field-item-filedirective .folder-item-operation > div.folder-item-show:hover .operate-buttons {
+                display: block;
+            }
+
+            .field-item-filedirective .folder-item-operation > div > span, .field-item-filedirective .control .toolbar > div.folder-item-root-add > span {
+                padding: 7px;
+                cursor: pointer;
+            }
+
+            .field-item-filedirective ul > li:hover .operate-buttons > span {
+                margin-left: 5px;
+                margin-right: 5px;
+                cursor: pointer;
+            }
+
+            .field-item-filedirective ul > li > span.expand-icon {
+                margin-right: 5px;
+                cursor: pointer;
+            }
+    </style>
+    <div class="field-item-filedirective">
+        <div class="mispt-ufl-form-label">默认目录：</div>
+        <div class="mispt-ufl-form-control">
+            <div class="toolbar">
+                <div>
+                    <!--ng-click="fileDirective.showAdd(fieldItem,$event);"-->
+                    <!--<span class="glyphicon glyphicon-folder-open" title="添加文件夹"></span>-->
+                </div>
+                <div class="folder-item-root-add" style="display:none;">
+                    <input type="text" style="padding:0;" />
+                    <span class="glyphicon glyphicon-ok" ng-click="fileDirective.save(fieldItem,$event);"></span>
+                    <span class="glyphicon glyphicon-remove" ng-click="fileDirective.cancel(fieldItem,$event);"></span>
+                </div>
+            </div>
+            <div class="folder-container">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="folder in fieldItem.controlConfig.folders" ng-init="folder.isShowEdit=false;folder.isShowAdd=false;folder.isShowChild=false;folder.newName='';level=level+1;folderSource=folder;parent=fieldItem.controlConfig.folders;" ng-include="'irm-control-config-filedirective-li'">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="irm-control-config-filedirective-li">
+    <div class="folder-item-operation">
+        <div class="folder-item-show" ng-if="!folder.isShowEdit">
+            <div class="folder-item" ng-click="folder.isShowChild = !folder.isShowChild;">
+                <label ng-style="{'width':(level-1)*15+'px','min-width':(level-1)*15+'px'}"></label>
+                <span ng-class="{true: 'iconSwitch icon-caret-down', false: 'iconSwitch icon-caret-right'}[folder.isShowChild]" style="width:8px;min-width:8px;"></span>
+                <span class="file-icons folder" style="min-width:32px;"></span>
+                <span ng-bind="folder.name" title="{{folder.name}}"></span>
+            </div>
+            <div class="operate-buttons">
+                <!--ng-click="fileDirective.folderOperation.add.start(folder);"-->
+                <!--<span class="glyphicon glyphicon-folder-open" title="添加文件夹"></span>
+                <span class="glyphicon glyphicon-pencil" title="重命名" ng-click="fileDirective.folderOperation.edit.start(folder);"></span>
+                <span class="glyphicon glyphicon-trash" ng-click="fileDirective.folderOperation.del(folder,parent);" title="删除"></span>-->
+            </div>
+        </div>
+        <div class="folder-item-edit" ng-if="folder.isShowEdit">
+            <label ng-style="{'width':(level-1)*15+'px','min-width':(level-1)*15+'px'}"></label>
+            <input type="text" ng-model="folder.Name" />
+            <input type="hidden" value="{{::folder.Name}}" />
+            <span class="glyphicon glyphicon-ok" ng-click="fileDirective.folderOperation.edit.save(folder,parent,$event);"></span>
+            <span class="glyphicon glyphicon-remove" ng-click="fileDirective.folderOperation.edit.cancel(folder,$event);"></span>
+        </div>
+        <div class="folder-item-add" ng-if="folder.isShowAdd">
+            <label ng-style="{'width':level*15+'px','min-width':level*15+'px'}"></label>
+            <input type="text" ng-model="folder.newName" />
+            <span class="glyphicon glyphicon-ok" ng-click="fileDirective.folderOperation.add.save(folder);"></span>
+            <span class="glyphicon glyphicon-remove" ng-click="fileDirective.folderOperation.add.cancel(folder);"></span>
+        </div>
+    </div>
+    <ul class="list-group" ng-if="folder.isShowChild">
+        <li class="list-group-item" ng-repeat="folder in folderSource.Children" ng-init="folder.isShowEdit=false;folder.isShowAdd=false;folder.isShowChild=false;folder.newName='';level=level+1;parent=folderSource.Children;folderSource=folder;" ng-include="'irm-control-config-filedirective-li'">
+        </li>
+    </ul>
+</script>
+<!--表单类型模板--组织机构,参与人-->
+<script type="text/ng-template" id="irm-control-config-participant">
+    <style>
+        .irm-control-config-participant-label {
+            width: 100px;
+            float: left;
+            margin-top: 6px;
+        }
+
+            .irm-control-config-participant-label div {
+                float: right;
+                margin-right: 30px;
+            }
+    </style>
+    <div class="form-unit">
+        <div class="label">人员范围：</div>
+        <div class="control">
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'org'" ng-model="fieldItem.controlConfig.thisOrg" value="true" /><div>本组织</div>
+            </div>
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'org'" ng-model="fieldItem.controlConfig.thisOrg" value="false" /><div>跨组织</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-unit">
+        <div class="label"> 人员数量:：</div>
+        <div class="control">
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'cou'" ng-model="fieldItem.controlConfig.single" value="true" ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" /><div>单人</div>
+            </div>
+            <div class="irm-control-config-participant-label">
+                <input type="radio" name="{{fieldItem.fieldCode}}+'cou'" ng-model="fieldItem.controlConfig.single" value="false" ng-disabled="newModelMananer.formManager.getFieldTypeIsDisabled(fieldItem);" /><div>多人</div>
+            </div>
+        </div>
+    </div>
+</script>

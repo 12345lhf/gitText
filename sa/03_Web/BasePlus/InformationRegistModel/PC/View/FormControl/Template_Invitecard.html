@@ -1,0 +1,19 @@
+﻿<div class="personCardWrap">
+    <div class="media personCardHead">
+        <a class="pull-left">
+            <img class="img-circle lzUserImg64" lz-img="user?user.face:''" wh-size="64X64" err-src="/Base/PC/Image/default.gif" src="/Base/PC/Image/default.gif"/>
+        </a>
+        <div class="media-body">
+            <h5 class="userName"><a class="colorBlue">{{user.user.username}}</a></h5>
+        </div>
+    </div>
+    <div class="personCardBtn" ng-if="isshow">
+        <ul class="nav nav-justified">
+            <li ng-if="lzIsdeleteinvite"><button class="btn btn-link btn-block" ng-click="revokeInvite()">删除成员</button></li> 
+            <li ng-if="lzIsrevokeInvite"><button class="btn btn-link btn-block" ng-click="revokeInvite()">撤销邀请</button></li>
+            <li ng-if="lzIsrepeatInvite"><button class="btn btn-link  btn-block" ng-click="afreshInvite()">重新邀请</button></li>
+        </ul>
+    </div>
+
+</div>
+

@@ -1,0 +1,187 @@
+﻿<div style="height:100%">
+    <link mispt-href="/BasePlus/MISPTFramework/PC/CSS/Common.css" rel="stylesheet" />
+      <script src="/BasePlus/InformationRegistModel/Common/JS/IRM_Common.js"></script>
+    <!--<link mispt-href="/BasePlus/InformationRegistModel/PC/CSS/List.css" rel="stylesheet" />-->
+    <link mispt-href="/BasePlus/MISPTFramework/PC/CSS/MISPTFramework.css" rel="stylesheet" />
+    <link href="/BasePlus/MISPTFramework/PC/CSS/MISPT_Table.css" rel="stylesheet" />
+    <script src="/Base/PC/JS/lz_extended/LZPost-Extended.js"></script>
+
+    <script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Controls.js"></script>
+    <script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Resource.js"></script>
+    <script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Project.js"></script>
+    <script src="/BasePlus/InformationRegistModel/PC/JS/Detail.js"></script>
+    <script src="/BasePlus/InformationRegistModel/PC/JS/FormControl/IRM_Controls.js"></script>
+  
+    <style>
+        .IRM_mispt_Title {
+            font-family: "微软雅黑 Bold","微软雅黑 Regular",微软雅黑;
+            color: rgb(134,134,134);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 700;
+        }
+        .td-text-ellipsis {
+             text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+    <div name="InformationRegistModel_List" id="InformationRegistModel_List" class="mispt mispt-list-fullscreen" ng-controller="InformationRegistModel_List">
+        <div class="misptTable">
+            <div id="pageHeaderAndToolbar">
+                <!--头部-->
+                <div class="misptTableHeader">
+                    <div ng-if="true" class="pull-left dropdown">
+                        <div class="text" style="padding-top: 10px;">
+                            <p>
+                                <span class="IRM_mispt_Title" ng-bind="listtitle"></span>
+                            </p>
+                        </div>
+                     
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!--工具条-->
+                <div class="misptTableToolbar">
+                    <!--创建任务按钮-->
+                    <div ng-if="true" class="btn-group dropdown pull-right">
+                        <!-- 设置ng-if 如果是二次开发的按钮则显示 -->
+                        <div class="user-default-btn" ng-if="isShowextend" ng-repeat="btn in modelInfo.extendConfig.extendToolBarConfig.list|filter:{isSupportPC:true}">
+                            <button ng-click="IRMlistMansge.userTargetBtn(btn);" class="btn  btn-long" ng-class="{true:'btn-primary',false:'btn-default'}[btn.buttonName=='登记']">{{btn.buttonName}}</button>
+                        </div>
+                        <!--<button type="button" ng-if="!isShowextend"  class="btn btn-primary" ng-click="createProjectManager.createTask($event);">
+                            <i class="icon icon-plus" title="新建"></i><span class="btn-txt-right" ng-bind="createProjectManager.title"></span>
+                        </button>-->
+                    </div>
+                    <!--排序-->
+                    <div ng-if="true" class="btn-group dropdown">
+                        <a class="btn dropdown-toggle" ng-class="{true:'btn-primary',false:'btn-default radius'}[toolsBar.sort.selectRankItem.rankCode!='']" id="lzTableToolSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i ng-class="toolsBar.sort.selectRankItem.classValue"></i>
+                            <span class="btn-txt-left" ng-bind="toolsBar.sort.selectRankItem.rankValue"></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu f12" style="overflow: auto;max-height: 500px;" aria-labelledby="lzTableToolSort">
+                            <li ng-repeat="item in toolsBar.orderManager.initData" ng-class="{true:'active',false:''}[toolsBar.sort.selectRankItem.index==item.index]" ng-click="toolsBar.orderManager.orderItemClick(item);">
+                                <a href="javascript:void(0)" ng-class="item.classValue">{{item.rankValue}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--过滤-->
+                    <div ng-if="true" class="btn-group btn-group-noblank">
+                        <div class="btn-group dropdown">
+                            <a class="btn dropdown-toggle" style="border-radius: 4px;" ng-class="{true:'btn-primary',false:'btn-default radius'}[toolsBar.filterManager.selectFilterItem.filterCode!='none']" id="lzTableToolFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="btn-txt-left" ng-class="toolsBar.filterManager.selectFilterItem.classValue" ng-bind="toolsBar.filterManager.selectFilterItem.filterValue"></span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="lzTableToolFilter">
+                                <li ng-repeat="item in toolsBar.filterManager.initData" ng-class="{true:'active',false:''}[toolsBar.filterManager.selectFilterItem.filterCode==item.filterCode]" ng-click="toolsBar.filterManager.filterItemClick(item);">
+                                    <a href="javascript:void(0)" ng-class="item.classValue" data-toggle="dropdown">{{item.filterValue}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--过滤输入框-->
+                        <div class="btn-group dropdown" style="margin:auto 2px; height:30px" ng-show="toolsBar.filterManager.selectFilterItem.filterCode!='none'&&toolsBar.filterManager.selectFilterItem.inputType=='text'">
+                            <div class="input-group" style="width:206px;">
+                                <input ng-model="toolsBar.filterManager.selectFilterItem.inputValue" type="text" title="点击回车搜索" ng-keyup="toolsBar.filterManager.searchByKeyup($event)" class="form-control f12" style="height:34px; border: 1px solid rgba(0,0,0,0.1);" aria-describedby="inputSuccess2Status" placeholder="{{toolsBar.filterManager.selectFilterItem.placeholder}}">
+                                <div ng-click="toolsBar.filterManager.searchByBtnClick($event);" class="input-group-addon" style="width:34px; background-color:white; cursor:pointer;" title="点击搜索"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+                            </div>
+                        </div>
+                        <div class="btn-group" style="margin-left:3px;">
+                            <button class="btn btn-default" style="border-radius: 4px; height:34px; line-height:10px;" type="button" title="刷新列表" ng-click="toolsBar.refreshManager.refreshClick();">
+                                <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!--列表主体-->
+            <div class="misptTableMain f14" ng-if="isshowlist">
+                
+                <div id="misptTableWrapper" lz-from-data-link class="misptTableWrapper" ng-if="!(table.trs.length<=0)" >
+                   <div style="overflow-x: auto;overflow-y: hidden;">
+
+
+                   
+                     <div class="lz-table-head mispt-table-thead-container " >
+                        <div class="mispt-table-thead">
+                            <div class="mispt-table-thead-th" ng-repeat="th in table.ths" ng-style="th.style" ng-class="th.class">
+                                <span ng-if="th.issort" title="点击排序" class="misptTableColSort" ng-click="th.isdesc=!th.isdesc;th.clickSort(th);">
+                                    <span ng-bind="th.headerTitle"></span>
+                                    <span ng-class="{true:'icon-caret-down',false:'icon-caret-up'}[th.isdesc]"></span>
+                                </span>
+                                <span ng-if="!th.issort">
+                                    <span ng-bind="th.headerTitle"></span>
+                                </span>
+                            </div>
+                            <div ng-if="isShowClearScrollWidth" style="width:17px;"></div>
+                            <div style="clear:both"></div>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="lz-scrolllink">
+                        <div  class="lz-scrolllink-y" style="width:17px;" lz-scrollable-vertical-link from-link="CoopTableFromLink" lz-from-link-y="true">
+                            <div class="inner"></div>
+                        </div>
+                        <!--<div class="lz-scrolllink-x" lz-scrollable-vertical-link from-link="misptTableFromLink" lz-from-link-x="true">
+                            <div class="inner"></div>
+                        </div>float:left-->
+                        <div lz-scrollable-vertical="15" class="mispt-table-tbody-container-scroll" style="float:left" from-link="CoopTableFromLink" lz-from-link-x="true" lz-from-link-y="true" scrollable-x="false" scrollable-y="false" lz-scroll-change-container="pageHeaderAndToolbar" lz-scroll-change-container-one="false" lz-scroll-will-complete="loadOper.loadData">
+                            <div class="mispt-table-tbody-container">
+                                <div class="mispt-table-tbody-tr" ng-repeat="tr in table.trs track by $index">
+                                    <div mispt-table-tbody-tr-td  ng-repeat="th in table.ths" ng-include="th.colTemplate" class="{{th.class}}" ng-style="th.style"></div>
+                                </div>
+                                <!--<div style="width:20px;height:20px; background-color:blue" class="icon ng-isolate-scope lz-favorite" ng-class="{true:'icon-star colorOrg',false:'icon-star-empty'}[tr[th.isStar]]" title="{{tr[th.isStar]?'取消收藏':'添加收藏'}}" ng-click="th.starClick(tr);"></div>-->
+
+                            </div>
+                        </div>
+                    </div>
+                       </div>
+                </div>
+                <div ng-if="table.trs.length<=0" ng-include="misptTableConfig.table.noSourceTpl||'misptTable_noSource.html'" style="width:100%;" class="misptTableWrapper"></div>
+            </div>
+        </div>
+        <!--table无数据模板-->
+        <script type="text/ng-template" id="misptTable_noSource.html">
+            <!--<div mispt-Nodatahint hint-Message="暂无数据" assist-Message="'新建'" assist-Function="_selfManager.toolbar.callNewTaskClick($event);"></div>-->
+            <div ng-if="misptTableStatus!='search'" misptcoop-Nodatahint hint-Message="'无数据'"></div>
+            <div ng-if="misptTableStatus=='search'" misptcoop-Nodatahint hint-Message="'无结果'"></div>
+        </script>
+
+        <!--列模板-->
+        <!--列模板1：该模板包括头像和任务状态和任务名称-->
+        <!-- 配置说明：-->
+        <script type="text/ng-template" id="misptTableCol_faceAndStateAndTitle.html">
+            <span class="taskClickTitle" ng-click="th.clickHref(th,tr);">
+                <a href="javascript:void(0)" class="spantit f14" showeditname="true" showcomment="false" showcommentbutton="false">
+                    <span ng-bind="tr[th.field]" title="{{tr[th.field]}}"></span>
+                </a>
+            </span>
+
+        </script>
+        <!-- 列模板2：该模板是序号（根据循环显示当前的序号） -->
+        <script type="text/ng-template" id="misptTableCol_Index.html">
+            <span class="color999"title="{{tr.index}}" >{{tr.index}}</span>
+        </script>
+        <!-- 列模板3：该模板是带有点击功能的文本模板 -->
+        <!--列模板11：该模板为日期(可以配置日期格式：如yyyy年MM月dd日)-->
+        <script type="text/ng-template" id="misptTableCol_datetime.html">
+            <span class="color999" ng-bind="tr[th.field]|date:'{{th.format}}'"></span>
+        </script>
+       <script type="text/ng-template" id="misptTableCol_datetimeclick.html">
+            <span class="taskClickTitle" ng-click="th.clickHref(th,tr);">
+                <a href="javascript:void(0)" class="spantit f14" showeditname="true" showcomment="false" showcommentbutton="false">
+                    <span ng-bind="tr[th.field]|date:'{{th.format}}'"></span>
+                </a>
+            </span>
+        </script>
+        <!--列模板15：该模板为文本(包含title)-->
+        <script type="text/ng-template" id="misptTableCol_SomeTextAndAllTitle.html">
+            <span title="{{tr[th.fieldAllTitle]}}">{{tr[th.field]}}</span>
+        </script>
+       
+        <div class="mispt-taskoper" ng-class="{'':!nonIntroInfo.loadTaskOper,'open': nonIntroInfo.loadTaskOper}" operationcode="opentask">
+            <div ui-view=""></div>
+        </div>
+    </div>
+</div>

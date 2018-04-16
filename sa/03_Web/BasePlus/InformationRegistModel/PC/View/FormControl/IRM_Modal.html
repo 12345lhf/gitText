@@ -1,0 +1,44 @@
+﻿<link mispt-href="/BasePlus/MISPTFramework/PC/CSS/MISPT_Modal.css" rel="stylesheet" />
+<style>
+    .init-hide {
+        visibility: hidden;
+    }
+
+    .init-show {
+        visibility: inherit !important;
+    }
+</style>
+<div class="modal fade in center ng-scope am-fade" tabindex="-1" role="dialog" style="z-index:1028;overflow:hidden">
+    <div class="modal-dialog misptmodal-dialog init-hide init-end-show" ng-class="{true:'init-show',false:'init-hide',}[isInited]" id="coopmodaldiaid" ng-style="myWidthstyle">
+        <!--通用弹框详情页面-->
+        <div class="modal-content">
+            <!--通用弹框头部-->
+            <div class="modal-header misptmodal-header" ng-if="showHeader" ng-class="{true:'bluebottom',false:''}[isbottom==true]">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close($hide)"> &times;</button>
+                </div>
+                <h3 class="modal-title misptmodal-title" title="{{lzMisModal_title}}" style="display: block; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" ng-class="{true:'titlecenter',false:''}[showtitlecenter==true]">
+                    {{lzMisModal_title}}
+                    <span style="color:red;width: 250px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{lzMisModaltitledesc}}</span>
+                </h3>
+            </div>
+
+            <div id="misptmodal" style="overflow: hidden">
+                <!--具有滚动条的的详情页面-->
+                <div class="misptmodal" ng-style="mystyle" style="overflow-y:auto">
+                    <div>
+                        <!--通用弹框内容-->
+                        <div>
+                            <div class="" ng-include="lzMisModal_url" style="height:100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer misptmodal-footer" ng-if="showFooter" style="border-top: 1px solid #E5E5E5;">
+                <button type="button" ng-disabled="{true: '', false:'disabled'}[item.formValid]" ng-class="item.class" data-dismiss="modal" ng-click="applyClick(item.key,item.value,item.methodName,item.params)" ng-repeat="item in footerButtonConfig"> {{item.text}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

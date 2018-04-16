@@ -1,0 +1,103 @@
+﻿<style>
+    input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"].disabled, input[type="checkbox"].disabled, fieldset[disabled] input[type="radio"], fieldset[disabled] input[type="checkbox"] {
+            cursor: auto;
+    }
+</style>
+<div class="mispt">
+    <div>
+        <div ng-controller="InformationRegistModelControlInfoController">
+            <div class="modal-body add-model">
+                <form name="entityForm" class="form-horizontal" novalidate="novalidate">
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label">控件名称：</label>
+                        <div class="col-sm-9" ng-class="{true:'has-error',false:''}[(entityForm.name.$error.required&&!entityForm.name.$pristine)]">
+                            <input type="text" class="form-control f14" name="name" placeholder="必填" ng-model="UIData.clientEntity.name" required  ng-readonly="{{UIData.isReadOnly}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">控件编码：</label>
+                        <div class="col-sm-9" ng-class="{true:'has-error',false:''}[(entityForm.code.$error.required&&!entityForm.code.$pristine)]">
+                            <input type="text" class="form-control f14" name="code" placeholder="必填" ng-model="UIData.clientEntity.code" required ng-readonly="{{UIData.isReadOnly}}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">控件描述：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="content" ng-model="UIData.clientEntity.description" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">控件类型：</label>
+                        <div class="col-sm-9">
+                            <div mistpt-drop-down options="UIData.controlTypes" bind-entity="UIData.clientEntity" field-name="controlType" on-select-change="UIMethods.controlTyepChange" read-only="UIData.isReadOnly" style="line-height:32px"></div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="UIData.clientEntity.controlType=='资源'">
+                        <label class="col-sm-2 control-label">保存方式：</label>
+                        <div class="col-sm-9">
+                            <div class="group-checkbox">
+                                <label><input type="radio" ng-checked="UIData.saveMode==0" ng-click="UIMethods.seletedSaveMode(0)" ng-disabled="{{UIData.isReadOnly}}"/><span>只保存目录ID</span></label>
+                                <label><input type="radio" ng-checked="UIData.saveMode==1"  ng-click="UIMethods.seletedSaveMode(1)" ng-disabled="{{UIData.isReadOnly}}"/><span>只保存文件ID</span></label>
+                                <label><input type="radio" ng-checked="UIData.saveMode==2" ng-click="UIMethods.seletedSaveMode(2)" ng-disabled="{{UIData.isReadOnly}}"/><span>保存目录和文件ID</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-group" ng-show="UIData.clientEntity.controlType=='人员'">
+                        <label class="col-sm-2 control-label">是否邀请：</label>
+                        <div class="col-sm-9">
+                            <div class="group-checkbox">
+                                <label><input type="radio" ng-checked="UIData.isInvite"  ng-click="UIMethods.seletedIsInvite(true)" ng-disabled="{{UIData.isReadOnly}}"/><span>是</span></label>
+                                <label><input type="radio" ng-checked="!UIData.isInvite"  ng-click="UIMethods.seletedIsInvite(false)" ng-disabled="{{UIData.isReadOnly}}"/><span>否</span></label>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Web端JS：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="webJS" ng-model="UIData.clientEntity.webJS" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Web端CSS：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="webCSS" ng-model="UIData.clientEntity.webCSS" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">移动端JS：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="mobileJS" ng-model="UIData.clientEntity.mobileJS" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">移动端CSS：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="mobileCSS" ng-model="UIData.clientEntity.mobileCSS" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">设计时JS：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="designJS" ng-model="UIData.clientEntity.designJS" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <label class="col-sm-2 control-label">设计时CSS：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="designCSS" ng-model="UIData.clientEntity.designCSS" ng-readonly="{{UIData.isReadOnly}}"></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label class="col-sm-2 control-label">扩展配置：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" cols="3" name="designCSS" ng-model="UIData.clientEntity.extendConfig"></textarea>
+                        </div>
+                    </div>-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

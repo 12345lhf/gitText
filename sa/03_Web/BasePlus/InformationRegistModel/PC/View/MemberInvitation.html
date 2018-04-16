@@ -1,0 +1,232 @@
+﻿<!--成员邀请接受界面-->
+
+<link mispt-href="/BasePlus/MISPTFramework/PC/CSS/Common.css" rel="stylesheet" />
+
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Controls.js"></script>
+
+<div ng-controller="TaskMemberInvitationController" class="lz-page-container lz-page-scroll" ng-show="formData['dataloaded']==true">
+
+    <div class="lz-page-header">
+        <button type="button" class="close" ng-click="closeDivDialog()">&times;</button>
+        <h3 class="lz-page-title text-center" ng-bind="maintitle"></h3>
+    </div>
+    <!--        编辑模式：只在没有接受邀请的时候才出现-->
+    <!--                邀请信息的-->
+    <div class="lz-page-body padding-lr" ng-if="formData.isaccepted==false&&formData.isignoreinvitation==false">
+        <form class="form-horizontal padding-lr">
+            <!--                邀请人-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请人</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.invitationuser" />
+                </div>
+            </div>
+            <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">任务名称</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.taskname" />
+                </div>
+            </div>
+            <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请时间</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.date|date:'yyyy-MM-dd'" />
+                </div>
+            </div>
+            <!--                参与人身份   在忽略掉的邀请时，不显示此信息-->
+            <div class="form-group" ng-if="formData.isignoreinvitation==false">
+                <label class="control-label col-xs-3">当前参与身份</label>
+                <div class="col-xs-9" ng-switch on="myInvitedManager.invitedMember.cooperationtype">
+                    <div class="btn-group btn-group-left">
+                        <button class="dropdown-toggle btn btn-link" data-toggle="dropdown">
+                            <i class="icon-pencil"></i>
+                            <span style="margin-left:15px;" ng-bind="formData.orgname" />
+                        </button>
+                        <ul class="dropdown-menu dropdown-max-height">
+                            <li ng-repeat="org in formData.allorgs" ng-click="onMyOrgSelected(org)">
+                                <a href="#"><span class="btn-txt-right" ng-bind="org.shortname" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--                    解决一个bug，做一下这样的处理，独立form-->
+        <form class="form-horizontal padding-lr" ng-if="formData.needselectcompany==true&&formData.isprojectmanager==true&&formData.isignoreinvitation==false">
+            <!--                项目团队中单位：项目经理接受邀请时的特殊处理-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">项目团队中单位</label>
+                <div class="col-xs-9" ng-switch on="myInvitedManager.invitedMember.cooperationtype">
+                    <div class="btn-group btn-group-left" style="width:100%;">
+                        <style type="text/css">
+                            .pti-input {
+                                position: relative;
+                                float: left;
+                                border: 1px solid white !important;
+                                cursor: pointer;
+                                width: 200px;
+                                padding-left: 5px !important;
+                            }
+
+                            .pti-input {
+                                width: 80%;
+                            }
+
+                                .pti-input:hover {
+                                    border: 1px solid #bbb !important;
+                                    cursor: text;
+                                }
+
+                            .pti-input-padding {
+                                text-indent: 4px;
+                            }
+                        </style>
+                        <button class="dropdown-toggle btn btn-link" data-toggle="dropdown" ng-if="formData.optiontreenodes.length!=0">
+                            <i class="icon-pencil"></i>
+                        </button>
+                        <input type="text" ng-class="{'pti-input-padding':formData.optiontreenodes.length==0}"
+                               ng-model="formData.companyname" class="pti-input" ng-change="formData.companynamemodify=true; onCompanyNameChanged();" />
+                        <ul class="dropdown-menu dropdown-max-height">
+                            <li ng-repeat="company in formData.optiontreenodes" ng-click="formData.companynamemodify=true; onJoinCompanySelected(company)">
+                                <a href="#"><span class="btn-txt-right" ng-bind="company.nodename" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--                操作按钮-->
+    <div class="lz-page-footer bg-body" ng-if="formData.isaccepted==false&&formData.isignoreinvitation==false">
+        <button type="button" class="btn btn-primary btn-long" ng-click="onAcceptInvitation();">
+            同意
+        </button>
+        <button type="button" class="btn btn-default btn-long" ng-click="onIgnoreInvitation()">
+            忽略
+        </button>
+    </div>
+    <!--     已同意、已忽略的时候展示的提示-->
+    <div class="lz-page-footer bg-body" ng-if="formData.isaccepted==true||formData.isignoreinvitation==true">
+        <button type="button" class="btn btn-default btn-long" ng-if="formData.isaccepted==true">
+            已同意
+        </button>
+        <button type="button" class="btn btn-default btn-long" ng-if="formData.isignoreinvitation==true">
+            已忽略
+        </button>
+    </div>
+    <!--        只读模式：只在邀请失效的时候才出现-->
+    <!--                邀请信息-->
+    <div class="lz-page-footer bg-body" ng-if="formData.Invalid==true">
+        <button type="button" class="btn btn-default btn-long" ng-if="formData.Invalid==true">
+            已失效
+        </button>
+    </div>
+
+    <!--        只读模式：只在接受邀请的时候才出现-->
+    <!--                邀请信息-->
+    <div class="lz-page-body padding-lr" ng-if="formData.isaccepted==true&&formData.isignoreinvitation==false">
+        <form class="form-horizontal padding-lr">
+            <!--                邀请人-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请人</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.invitationuser" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3">任务名称</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.taskname" />
+                </div>
+            </div>
+            <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请时间</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.date|date:'yyyy-MM-dd'" />
+                </div>
+            </div>
+            <!--                参与身份-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">当前参与身份</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.orgname" />
+                </div>
+            </div>
+            <!--                项目查看方式-->
+            <!--<div class="form-group">
+                <label class="control-label col-xs-3">项目查看方式</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-if="isCurOrgAccepte==true;">
+                        在<b>应用</b>中点击<b>&nbsp;{{formData.appname}}&nbsp;</b>即可查看项目；您也可以在<b>统一项目</b>中查看。
+                    </p>
+                    <p class="form-input-txt" ng-if="isCurOrgAccepte==false;">
+                        1、切换当前身份到<b>{{formData.orgname}}；</b><br />
+                        2、在<b>应用</b>中点击<b>&nbsp;{{formData.appname}}&nbsp;</b>即可查看项目；您也可以在<b>统一项目</b>中查看。
+                    </p>
+                </div>
+            </div>-->
+        </form>
+        <h3 style="width:100%;text-align:center;padding-top:10px"></h3>
+    </div>
+    <!--        只读模式：只在忽略邀请的时候才出现-->
+    <!--                邀请信息-->
+    <div class="lz-page-body padding-lr" ng-if="formData.isignoreinvitation==true">
+        <form class="form-horizontal padding-lr">
+            <!--                邀请人-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请人</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.invitationuser" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3">任务名称</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.taskname" />
+                </div>
+            </div>
+            <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请时间</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.date|date:'yyyy-MM-dd'" />
+                </div>
+            </div>
+
+
+        </form>
+        <h3 style="width:100%;text-align:center;padding-top:10px"></h3>
+    </div>
+    <!--        只读模式：只在邀请失效的时候才出现-->
+    <!--                邀请信息-->
+    <div class="lz-page-body padding-lr" ng-if="formData.Invalid==true">
+        <form class="form-horizontal padding-lr">
+            <!--                邀请人-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请人</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.invitationuser" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3">任务名称</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.taskname" />
+                </div>
+            </div>
+            <!--                邀请任务-->
+            <div class="form-group">
+                <label class="control-label col-xs-3">邀请时间</label>
+                <div class="col-xs-9">
+                    <p class="form-input-txt" ng-bind="formData.date|date:'yyyy-MM-dd'" />
+                </div>
+            </div>
+
+
+        </form>
+        <h3 style="width:100%;text-align:center;padding-top:10px"></h3>
+    </div>
+</div>

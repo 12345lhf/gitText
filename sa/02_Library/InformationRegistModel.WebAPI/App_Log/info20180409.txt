@@ -1,0 +1,8 @@
+2018-04-09 15:55:25,385 [1] INFO  LeadingCloud.Framework.Adapter.LZRabbitMQ.Rabbit - 
+===========================================================
+标题：RegisterConsumer.start
+用户：
+类名称：LeadingCloud.Framework.Adapter.LZRabbitMQ.Rabbit
+方法名称：consumer-lzlog,queuename-lzlog:开发 03-MIS平台模型 03-信息登记模型-WebAPI:lhfw10
+方法内容：System.Func`3[System.String,LeadingCloud.Framework.MQ.MQMessageSerializable,System.Boolean]
+

@@ -1,0 +1,117 @@
+﻿.misptTable {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    
+}
+.mispt.mispt-list-fullscreen {
+    position: relative;
+    background: #f0f0f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+    .misptTable .misptTableHeader {
+        background-color: transparent;
+        border-bottom: 1px solid Rgba(0,0,0,0.1);
+        padding: 11px 20px 10px;
+        min-height: 58px;
+        vertical-align: middle;
+        margin: 0;
+        overflow: visible;
+    }
+
+    .misptTable .misptTableToolbar {
+        background: none;
+        border-bottom: 1px solid transparent;
+        padding: 9px 15px 8px;
+        margin-left: 0;
+        margin-right: 0;
+        vertical-align: middle;
+    }
+
+    .misptTable .misptTableMain {
+        display: flex;
+        flex: 1;
+        padding: 0 15px 15px 15px;
+    }
+
+        .misptTable .misptTableMain .misptTableWrapper {
+            background-color: white;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,.15);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+.mispt-table-thead-container {
+    border-bottom: 1px solid #ddd;
+    height: 48px;
+    min-height:48px;
+}
+
+    .mispt-table-thead-container .mispt-table-thead {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        min-height:48px;
+    }
+
+        .mispt-table-thead-container .mispt-table-thead .mispt-table-thead-th {
+            padding-left: 8px;
+            padding-left: 8px;
+        }
+
+            .mispt-table-thead-container .mispt-table-thead .mispt-table-thead-th > span.misptTableColSort {
+                cursor: pointer;
+            }
+
+.mispt-table-tbody-container .mispt-table-tbody-tr {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+}
+
+    .mispt-table-tbody-container .mispt-table-tbody-tr > div[mispt-table-tbody-tr-td] {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+        .mispt-table-tbody-container .mispt-table-tbody-tr > div[mispt-table-tbody-tr-td].td-text-ellipsis {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+.misptTableCol_faceAndStateAndTitle {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+}
+
+    .misptTableCol_faceAndStateAndTitle > span.taskStateIcon {
+        margin-right: 5px;
+        cursor:default;
+    }
+
+    .misptTableCol_faceAndStateAndTitle > span.taskClickTitle {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .misptTableCol_faceAndTitle span.taskClickTitle:hover > a, .misptTableCol_faceAndStateAndTitle span.taskClickTitle:hover > a {
+        color: #337ab7;
+        text-decoration: underline;
+    }

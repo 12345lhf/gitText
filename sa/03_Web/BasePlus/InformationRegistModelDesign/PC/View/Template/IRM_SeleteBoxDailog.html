@@ -1,0 +1,113 @@
+﻿<div class="modal fade in" style="display: flex; align-items: center;">
+    <style>
+        .modal-backdrop {
+            opacity: 0.3;
+        }
+
+        .modal-dialog-container {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-content > .dialog-modal-header {
+            padding: 8px 15px;
+        }
+
+        .modal-dialog {
+            width: 250px;
+        }
+
+        .modal-content > .dailog-modal-body {
+            padding: 0 15px 8px 15px;
+        }
+
+        .modal-body {
+            padding: 0 !important;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: 400px;
+            max-height: 500px;
+        }
+
+        .modal-title {
+            text-align: center;
+        }
+
+        .irm-select-class-item {
+            display: inline-flex;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #e0e0e0;
+            line-height: 40px;
+            background-color: #fff;
+            border-top: 0;
+            cursor:pointer;
+        }
+
+            .irm-select-class-item:focus,
+            .irm-select-class-item:hover,
+            .irm-select-class-item:active {
+                background-color: #f1eff3;
+            }
+
+            .irm-select-class-item.active {
+                background-color: #f1eff3;
+            }
+
+        .irm-select-class-items:first-child {
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .irm-select-class-item-name {
+            padding-left: 6px;
+            padding-right:14px;
+            display: inline-block;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .irm-padding-none {
+            padding: 0;
+        }
+
+        .irm-select-class-item-point {
+            display: inline-block;
+            margin-top: 13px;
+            margin-left:14px;
+            width: 14px;
+            height: 14px;
+            background-image: url('/BasePlus/InformationRegistModelDesign/PC/Images/class/iconPoint.png');
+            background-repeat: no-repeat;
+            background-position-x: 4px;
+            background-position-y: 4px;
+        }
+    </style>
+    <div class="modal-dialog-container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header dialog-modal-header" style="border-bottom:none;padding: 10px;">
+                    <h3 class="modal-title" style="font-family:'Microsoft YaHei';">{{lzSelectBoxDailogTitle}}</h3>
+                </div>
+                <div class="modal-body dailog-modal-body">
+                    <div class="irm-padding-none font14">
+                        <ul class="irm-select-class-items" style="margin:0;padding:0">
+                            <li class="irm-select-class-item" ng-class="{true:'active',false:''}[item.id==lzSelectBoxDailog.selectdItem.id]" ng-click="selectHandler(item,$event)" ng-repeat="item in lzSelectBoxDailogdData.items">
+                                <span class="irm-select-class-item-point"></span>
+                                <span class="irm-select-class-item-name">{{item.name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top:none;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="lzSelectBoxDailogBtnClick(false,$event)"> 取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="lzSelectBoxDailogBtnClick(true,$event)"> 确定 </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

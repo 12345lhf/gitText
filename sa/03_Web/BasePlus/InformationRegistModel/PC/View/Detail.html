@@ -1,0 +1,54 @@
+﻿<link href="/BasePlus/MISPTFramework/PC/CSS/Common.css" rel="stylesheet" />
+<link mispt-href="/BasePlus/MISPTFramework/PC/CSS/MISPTFramework.css" rel="stylesheet" />
+<link mispt-href="/BasePlus/InformationRegistModel/PC/CSS/formCommon.css" rel="stylesheet" />
+
+<link mispt-href="/BasePlus/MISPTFramework/PC/CSS/MISPT_File1.css" rel="stylesheet" />
+<link mispt-href="/BasePlus/MISPTFramework/PC/CSS/MISPT_File2.css" rel="stylesheet" />
+<link mispt-href="/BasePlus/CooperationTaskModel/PC/CSS/Frame.css" rel="stylesheet" />
+
+<script src="/BasePlus/InformationRegistModel/PC/JS/FormControl/IRM_Controls.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Controls.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Resource.js"></script>
+<script src="/BasePlus/MISPTFramework/PC/JS/LZMISPT-Project.js"></script>
+
+<div name="CooperationTaskModel_Detail" ng-controller="InformationRegistModel_Detail">
+    <!--<style>
+        .mispt .mispt-detail-form {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="mispt mispt-detail">
+        <div class="detail ext-detail">
+            <link mispt-href="/BasePlus/MISPTFramework/PC/CSS/MISPTFramework.css" rel="stylesheet" />
+
+            <form name="entityForm" class="form-horizontal  mispt-detail-form">
+                <div ng-if="isshow" form-control config="formcon" viewPostData=viewPostData>
+
+                </div>
+            </form>
+        </div>
+    </div>-->
+
+    <div class="mispt" ng-style="bottom">
+        <div class="modal-body">
+            <style>
+                .irm-readonly {
+                    border: 0px !important;
+                    background-color: #fff !important;
+                }
+                .border-time-readOnly {
+                 border: 0px !important;
+                }
+                .detailclassreadonly {
+                    margin-top: 7px;
+                    height: 27px;
+                }
+            </style>
+            <form name="entityForm" class="form-horizontal" novalidate="novalidate" id="misptAddPage">
+                <div ng-if="isshow" form-control config=formcon viewPostData=viewPostData>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
